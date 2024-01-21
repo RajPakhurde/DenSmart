@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+ /* Header */
+.header {
+    width: calc(100% - 340px);
+    height: 70px;
+    backdrop-filter: blur(14px); 
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); 
+    display: inline-flex;
+    position: absolute;
+    justify-content: flex-end;
+    margin-right: 30px;
+    margin-top: 30px;
+    align-items: center;
+    padding-right: 30px;
+    gap: 30px;
+    color: #7B809A;
+} 
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    background-color: aqua;
+    border-radius: 50%;
+}
+
+.img-div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+/* Navbar */
+
+.nav-container {
+    background-image: linear-gradient(#404048, #1C1C1D);
+    width: 250px;
+    height: 95vh;
+    margin: 30px;
+    border-radius: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    
+}  
+
+.nav-item-active {
+    background-image: linear-gradient(#3E98EF, #2A83EB);
+    width: 70%;  
+    text-align: start;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.nav-item {
+    width: 70%; 
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: start;
+}
+
+.nav-item:hover {
+    background-color: #5D5D61;
+}
+
+.product-name {
+    padding: 30px;
+    color: #fff;
+}
+
+hr {
+    opacity: .5;
+    width: 70%;
+    border-radius: 100%;
+}
+
+/* Dashboard */
+
+.dashboard-container, .appointment-container, .patients-container, .planner-container, .records-container, .accounts-container{
+    width: calc(100% - 340px);
+    height: 100vh;
+    background-color: grey;
+    display: inline-flex;
+    position: absolute;
+    top: 120px;
+}
