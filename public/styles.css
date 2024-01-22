@@ -21,21 +21,48 @@ html, body {
     background-color: rgba(255, 255, 255, 0.2); 
     box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); 
     display: inline-flex;
-    position: absolute;
-    justify-content: flex-end;
+    position: fixed;
+    justify-content: space-between;
     margin-right: 30px;
     margin-top: 20px;
     align-items: center;
     padding-right: 30px;
     gap: 30px;
     color: #7B809A;
+    font-family: 'Roboto', sans-serif;
+    z-index: 9;
+    right: 0%;
+
 } 
+
+.header-left {
+    padding-left: 10px;
+}
+
+.header-left p {
+    font-size: .8rem;
+    word-spacing: 10px;
+}
+
+.header-left h3 {
+    font-size: 1rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    gap: 30px;
+}
 
 .profile-img {
     width: 40px;
     height: 40px;
-    background-color: aqua;
+    background-color: rgb(63, 63, 63);
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .img-div {
@@ -56,6 +83,8 @@ html, body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    position: fixed;
+    top: 0%;
     
 }  
 
@@ -108,6 +137,8 @@ hr {
     display: inline;
     position: absolute;
     top: 100px;
+    right: 0%;
+    margin-right: 30px;
 }
 
 .dashboard-div-1, .dashboard-div-2 {
@@ -123,13 +154,13 @@ hr {
  
 
 .dashboard-div-item {
-    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    padding: 20px;
     flex: 1 1 0px;
     justify-content: space-between;
     position: relative;
+    padding: 20px;
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
 }
 
@@ -193,4 +224,175 @@ th, td {
 
 .table-th {
     color: #7B809A ;
+}
+
+
+.dashboard-div-3 {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 20px;
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    color: #1C1C1D;
+}
+
+.treatment-table-data{
+     text-align: center;
+}
+.treatment-col {
+    text-align: left;
+}
+
+.treatment-info-header, .hospital-info-header {
+    padding-bottom: 20px;
+    font-weight: bold;
+    color: #7B809A ;
+}
+
+.table-tr:nth-child(even) {
+    background-color: #f2f2f2;
+    margin-top: 20px;
+}
+
+th {
+    background-image: linear-gradient(#5EB562, #49A44D);
+    color: white;
+}
+
+.table-card-2 {
+    width: 30%;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    color: #1C1C1D;
+}
+
+.hospital-info {
+    display: inline-flex;
+    padding: 20px;
+    align-items: center;
+    font-weight: bold;
+    color: #1C1C1D;
+}
+
+.hospital-info div {
+    width: 40px;
+    height: 40px;
+    background-image: linear-gradient(#3E98EF, #2A83EB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.div-3 {
+    display: flex;
+    gap: 30px;
+}
+
+/* Appointment  */
+
+.appointment-nav-inner h3, .new-btn-appointment {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #7B809A;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 10rem;
+  will-change: transform;
+}
+
+.appointment-nav-inner h3:disabled {
+  pointer-events: none;
+}
+
+.appointment-nav-inner h3:hover {
+  color: #fff;
+  background-image: linear-gradient(#404048, #1C1C1D);
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.appointment-nav-inner h3:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.new-btn-appointment {
+    font-weight: bold;
+    background-image: linear-gradient(#E93A76, #DC2265);
+    color: #fff;
+}
+
+.new-btn-appointment:hover {
+    background-image: linear-gradient(#404048, #1C1C1D);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+
+.appointment-nav-inner   {
+    display: flex;
+    justify-content: start;
+    gap: 30px;
+    
+}
+
+.appointment-nav-inner h3 {
+    /* flex: 1 1 0px; */
+
+}
+
+.appointment-nav {
+    margin-top: 20px;
+    position: fixed;
+    width: calc(100% - 340px);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.appointment-nav-outer hr {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.appointment-nav-outer {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-nav-item {
+    display: flex;
+    justify-content: space-between;
 }

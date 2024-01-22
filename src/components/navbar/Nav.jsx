@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import NavItem from './NavItem';
+
  
  
 const Nav = ({setCurrentCompnent}) => {
@@ -14,6 +15,7 @@ const Nav = ({setCurrentCompnent}) => {
         <div className='nav-container'>
             <h1 className='product-name'>DenSmart</h1>
             <hr />
+            
             <NavItem id="1" navitem="Dashboard" active={activeCom === "1" ? true : false} setActiveCompnent={setActiveCompnent} />
             <NavItem id="2" navitem="Appointment" active={activeCom === "2" ? true : false} setActiveCompnent={setActiveCompnent} />
             <NavItem id="3" navitem="Patients" active={activeCom === "3" ? true : false} setActiveCompnent={setActiveCompnent} />

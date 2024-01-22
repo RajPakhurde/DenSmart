@@ -1,9 +1,11 @@
 import React from 'react';
+import AppointmentNav from './appointement/AppointmentNav';
 
 const Appointment = () => {
     return (
         <div className='appointment-container'>
-            <h1>Appointment</h1>
+            <AppointmentNav />
+            
         </div>
     );
 };

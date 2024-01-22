@@ -1,5 +1,6 @@
 import React from 'react';
 import DashboardSmallTable from './DashboardSmallTable';
+import Zoom from '@mui/material/Zoom';
 
 const DashboardDiv2 = () => {
     const tableHeadings = [
@@ -18,12 +19,14 @@ const DashboardDiv2 = () => {
 
 
     return (
-        <div className='dashboard-div-2'>
-            {tableHeadings.map((th, index) => {
-                return <DashboardSmallTable key={index} id={index} th={th} icon={icons[index]} />
-            })}
-           
-        </div>
+        <Zoom in={true}>
+            <div className='dashboard-div-2'>
+                {tableHeadings.map((th, index) => {
+                    return <DashboardSmallTable key={index} id={index} th={th} icon={icons[index]} />
+                })}
+            
+            </div>
+        </Zoom>
     );
 };
 
