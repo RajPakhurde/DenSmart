@@ -12,7 +12,6 @@ const App = () => {
     const [currentComp, setCurrentComp] = useState("dashboard");     
 
     function setCurrentCompnent (id) {
-        console.log(id);
         switch (id) {
             case "1":
                 setCurrentComp("dashboard")

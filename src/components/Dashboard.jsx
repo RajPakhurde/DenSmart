@@ -1,9 +1,13 @@
 import React from 'react';
+import DashboardDiv1 from './dashboard/DashboardDiv1';
+import DashboardDiv2 from './dashboard/DashboardDiv2';
+
 
 const Dashboard = () => {
     return (
         <div className='dashboard-container'>
-           <h1>Dashboard</h1>
+            <DashboardDiv1 />
+            <DashboardDiv2 />
         </div>
     );
 };

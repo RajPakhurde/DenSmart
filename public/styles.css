@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +24,7 @@ html, body {
     position: absolute;
     justify-content: flex-end;
     margin-right: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     align-items: center;
     padding-right: 30px;
     gap: 30px;
@@ -59,23 +61,31 @@ html, body {
 
 .nav-item-active {
     background-image: linear-gradient(#3E98EF, #2A83EB);
-    width: 70%;  
+    width: 80%;  
     text-align: start;
     color: #fff;
     padding: 20px;
     border-radius: 8px;
+    cursor: pointer;
+    word-spacing: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .nav-item {
-    width: 70%; 
+    width: 80%; 
     color: #fff;
     padding: 20px;
     border-radius: 8px;
     text-align: start;
+    word-spacing: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .nav-item:hover {
     background-color: #5D5D61;
+    cursor: pointer;
 }
 
 .product-name {
@@ -85,8 +95,9 @@ html, body {
 
 hr {
     opacity: .5;
-    width: 70%;
+    width: 80%;
     border-radius: 100%;
+    margin-bottom: 20px;
 }
 
 /* Dashboard */
@@ -94,8 +105,92 @@ hr {
 .dashboard-container, .appointment-container, .patients-container, .planner-container, .records-container, .accounts-container{
     width: calc(100% - 340px);
     height: 100vh;
-    background-color: grey;
-    display: inline-flex;
+    display: inline;
     position: absolute;
-    top: 120px;
+    top: 100px;
+}
+
+.dashboard-div-1, .dashboard-div-2 {
+    width: 100%;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 50px;
+    font-family: 'Roboto', sans-serif;
+ 
+}
+ 
+
+.dashboard-div-item {
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    flex: 1 1 0px;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 8px;
+}
+
+.dashboard-div-item h2 {
+    padding-top: 20px;
+    text-align: end;
+    font-size: 2rem;
+}
+
+.dashboard-div-item p {
+    color: #7B809A;
+}
+
+.icon {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    position: relative;
+    top: -30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.icon1 {
+    background-image: linear-gradient(#404048, #1C1C1D);
+}
+
+.icon2 {
+    background-image: linear-gradient(#3E98EF, #2A83EB);
+}
+
+.icon3 {
+  
+    background-image: linear-gradient(#5EB562, #49A44D);
+}
+.icon4 {
+    background-image: linear-gradient(#E93A76, #DC2265);
+}
+
+.dashboard-div2 {
+    display: block;
+}
+
+table {
+    width: 100%;
+}
+
+.table-second-ele {
+    position: relative;
+    right: 0%;
+}
+th, td {
+    padding: 5px;
+    font-weight: bold;
+    color: #1C1C1D;
+}
+
+.table-th {
+    color: #7B809A ;
 }
