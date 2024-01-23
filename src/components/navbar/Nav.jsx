@@ -3,7 +3,7 @@ import NavItem from './NavItem';
 
  
  
-const Nav = ({setCurrentCompnent}) => {
+const Nav = ({setCurrentCompnent, subHeader}) => {
     const [activeCom, setActiveCom] = useState("1");
 
     function setActiveCompnent(id) {
@@ -17,7 +17,7 @@ const Nav = ({setCurrentCompnent}) => {
             <hr />
             
             <NavItem id="1" navitem="Dashboard" active={activeCom === "1" ? true : false} setActiveCompnent={setActiveCompnent} />
-            <NavItem id="2" navitem="Appointment" active={activeCom === "2" ? true : false} setActiveCompnent={setActiveCompnent} />
+            <NavItem id="2" navitem="Appointment" active={activeCom === "2" ? true : false} setActiveCompnent={setActiveCompnent} subHeader={subHeader}/>
             <NavItem id="3" navitem="Patients" active={activeCom === "3" ? true : false} setActiveCompnent={setActiveCompnent} />
             <NavItem id="4" navitem="Planner" active={activeCom === "4" ? true : false} setActiveCompnent={setActiveCompnent} />
             <NavItem id="5" navitem="Records" active={activeCom === "5" ? true : false} setActiveCompnent={setActiveCompnent} />

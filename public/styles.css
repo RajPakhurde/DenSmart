@@ -404,8 +404,157 @@ th {
 }
 
 .appointment-tables {
-    height: 100%;
+    height: fit-content;
     position: relative;
     top: 20%;
-    background-color: red;
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    color: #1C1C1D;
+    text-align: center;
 }
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+    margin-top: 20px;
+}
+
+table, th, tr, td {
+    padding: 10px;
+}
+
+.form {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    color: #1C1C1D;
+    text-align: center;
+    padding: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.appointment-booking {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 20%;
+    
+}
+
+.form-row-5 {
+    justify-content: flex-end;
+}
+
+.form-checkbox {
+    text-align: start;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-checkbox div {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.whatsapp-icon {
+    color: #49A44D;
+    font-size: 40px;
+    border-radius: 5px;
+}
+
+.email-icon {
+    color: #2A83EB;
+    font-size: 40px;
+    border-radius: 5px;
+}
+
+.input-container{
+	position:relative;
+	margin-bottom:25px;
+}
+.input-container label{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-size:16px;
+	color:#7B809A;	
+	transition: all 0.5s ease-in-out;
+}
+.input-container input{ 
+  border:0;
+  border-bottom:1px solid #7B809A;  
+  background:transparent;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:16px;
+  color:#7B809A;
+}
+.input-container input:focus{ 
+ border:none;	
+ outline:none;
+ border-bottom:1px solid #e74c3c;	
+}
+ 
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+	top:-12px;
+	font-size:12px;
+	
+}
+
+input:hover {
+    cursor: pointer;
+}
+
+select {
+    /* Reset */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 15rem;
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+      linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+    color: #7B809A;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* Remove IE arrow */
+    &::-ms-expand {
+      display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+      outline: none;
+    }
+    /* <option> colors */
+    option {
+      color: inherit;
+      background-color: var(--option-bg);
+    }
+  }
+  
+  [type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }

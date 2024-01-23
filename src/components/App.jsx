@@ -10,11 +10,13 @@ import Accounts from './Accounts'
 
 
 const App = () => {
-    const [currentComp, setCurrentComp] = useState("appointment");   
+    const [currentComp, setCurrentComp] = useState("dashboard");   
     
     const [currentPage, setCurrentPage] = useState("Dashboard");
 
     const [iconHeader, setIconHeader] = useState(<i class="ri-home-7-fill"></i>);
+
+    const [header, setHeader] = useState("/ All");
 
     const icons = [
         <i class="ri-home-7-fill"></i>, 
@@ -66,10 +68,10 @@ const App = () => {
     return (
         <div>
             
-            <Nav setCurrentCompnent={setCurrentCompnent} />
-            <Header page={currentPage} icon={iconHeader}/>
+            <Nav setCurrentCompnent={setCurrentCompnent} subHeader={setHeader} />
+            <Header page={currentPage} icon={iconHeader} subHeader={header}/>
             {currentComp === "dashboard" && <Dashboard /> }
-            {currentComp === "appointment" && <Appointment /> }
+            {currentComp === "appointment" && <Appointment setHeader={setHeader} /> }
             {currentComp === "patients" && <Patients /> }
             {currentComp === "planner" && <Planner /> }
             {currentComp === "records" && <Records /> }

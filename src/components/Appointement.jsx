@@ -5,21 +5,24 @@ import AppointmentNewTable from './appointement/AppointmentNewTable';
 import AppointmentCheckinTable from './appointement/AppointmentCheckinTable';
 import AppointmentCancelTable from './appointement/AppointmentCancelTable';
 import AppointmentCompleteTable from './appointement/AppointmentCompleteTable';
-
-const Appointment = () => {
+import AppointmentAddNew from './appointement/AppointmentAddNew';
+ 
+const Appointment = (props) => {
     const [currentTable, setCurrentTable] = useState("all");
 
     return (
-        <div className='appointment-container'>
-            <AppointmentNav setCurrentTable={setCurrentTable}/>
-
-            {currentTable === "all" && <AppointmentAllTable/>}
-            {currentTable === "new" && <AppointmentNewTable/>}
-            {currentTable === "checkin" && <AppointmentCheckinTable/>}
-            {currentTable === "cancel" && <AppointmentCancelTable/>}
-            {currentTable === "completed" && <AppointmentCompleteTable/>}
-             
-        </div>
+        
+            <div className='appointment-container'>
+                <AppointmentNav setCurrentTable={setCurrentTable} setHeader={props.setHeader}/>
+              
+                {currentTable === "all" && <AppointmentAllTable/>}
+                {currentTable === "new" && <AppointmentNewTable/>}
+                {currentTable === "checkin" && <AppointmentCheckinTable/>}
+                {currentTable === "cancel" && <AppointmentCancelTable/>}
+                {currentTable === "completed" && <AppointmentCompleteTable/>}
+                {currentTable === "book_Appointment" && <AppointmentAddNew />}
+            </div>
+     
     );
 };
 

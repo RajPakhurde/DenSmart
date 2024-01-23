@@ -4,6 +4,7 @@ const AppointmentNav = (props) => {
 
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
+        props.setHeader("/ " +event.target.id.charAt(0).toUpperCase() + event.target.id.slice(1));
     }
 
 
@@ -20,7 +21,7 @@ const AppointmentNav = (props) => {
                     </div>
 
                     <div>
-                        <button className="new-btn-appointment">+ New</button>
+                        <button id="book_Appointment" className="new-btn-appointment" onClick={handleClick}>+ New</button>
                     </div>
                 </div>
                 <hr />
