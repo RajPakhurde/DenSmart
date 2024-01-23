@@ -1,16 +1,22 @@
 import React from "react";
 
-const AppointmentNav = () => {
+const AppointmentNav = (props) => {
+
+    function handleClick(event) {
+        props.setCurrentTable(event.target.id);
+    }
+
+
     return (
         <div className="appointment-nav-outer">
             <div className="appointment-nav">
                 <div className="appointment-nav-item">
                     <div className="appointment-nav-inner">
-                        <h3>All</h3>
-                        <h3>New</h3>
-                        <h3>Checkin</h3>
-                        <h3>Cancel</h3>
-                        <h3>Completed</h3>
+                        <h3 id="all" onClick={handleClick}>All</h3>
+                        <h3 id="new" onClick={handleClick} >New</h3>
+                        <h3 id="checkin" onClick={handleClick}>Checkin</h3>
+                        <h3 id="cancel" onClick={handleClick} >Cancel</h3>
+                        <h3 id="completed" onClick={handleClick}>Completed</h3>
                     </div>
 
                     <div>
