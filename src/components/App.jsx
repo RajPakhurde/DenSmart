@@ -74,9 +74,9 @@ const App = () => {
             {currentComp === "appointment" && <Appointment setHeader={setHeader} /> }
             {currentComp === "patients" && <Patients /> }
             {currentComp === "planner" && <Planner /> }
-            {currentComp === "records" && <Records /> }
+            {currentComp === "records" && <Records setHeader={setHeader} /> }
             {currentComp === "accounts" && <Accounts /> }
-
+            {console.log(header)}
            
         </div>
     );

@@ -8,7 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 const AppointmentAddNew = () => {
    
     return (
-        <div className='appointment-booking'>
+        <div className='appointment-booking' >
             <form>
           <div className="form">
             <div id="form-row-1" class="form-row">
@@ -96,8 +96,8 @@ const AppointmentAddNew = () => {
             </div>
             <hr />
             <div id="form-row-5" className="form-row form-row-5">
-              <button type="submit" id="submit-btn">Submit</button>
-              <button type="reset" id="reset-btn">Reset</button>
+              <button type="submit" className="submit-btn">Submit</button>
+              <button type="reset" className="reset-btn">Reset</button>
             </div>
           </div>
         </form>

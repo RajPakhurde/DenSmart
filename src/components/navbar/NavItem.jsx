@@ -18,6 +18,9 @@ const NavItem = ({navitem, active, id, setActiveCompnent, subHeader}) => {
             if (id === "2") {
                 subHeader("/ All");
             }
+            if (id === "5") {
+                subHeader("/ Labrecords")
+            }
         }}
         >
             <h3> {icons[parseInt(id) - 1]} {navitem}</h3>

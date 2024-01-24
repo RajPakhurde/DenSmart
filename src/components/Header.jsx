@@ -8,7 +8,7 @@ const Header = (props) => {
         <Slide in={true}>
             <div className='header'>
                 <div className='header-left'>
-                    <p>{props.icon}  / {props.page} {props.page==="Appointment" && props.subHeader !== undefined && props.subHeader}</p>
+                    <p>{props.icon}  / {props.page} {props.page==="Appointment" || props.page === "Records" && props.subHeader !== undefined && props.subHeader}</p>
                     <h3>{props.page}</h3>
                 </div>
                 <div className='header-right'>

@@ -403,7 +403,7 @@ th {
     border-radius: 8px;
 }
 
-.appointment-tables {
+.appointment-tables, .patient-info {
     height: fit-content;
     position: relative;
     top: 20%;
@@ -428,12 +428,14 @@ table, th, tr, td {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 10px 15px rgba(90, 14, 212, 0.322);
     border-radius: 8px;
     font-family: 'Roboto', sans-serif;
-    color: #1C1C1D;
+    color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
+    /* background-image: url('./assets/form\ background.png'); */
+    object-fit: scale-down;
 }
 
 .form-row {
@@ -470,13 +472,13 @@ table, th, tr, td {
 }
 
 .whatsapp-icon {
-    color: #49A44D;
+    color: #7B809A;
     font-size: 40px;
     border-radius: 5px;
 }
 
 .email-icon {
-    color: #2A83EB;
+    color: #7B809A;
     font-size: 40px;
     border-radius: 5px;
 }
@@ -558,3 +560,24 @@ select {
   [type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
+
+.submit-btn, .reset-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #fff;
+    background-image: linear-gradient(#5EB562, #49A44D);
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+}
+
+.submit-btn:hover, .reset-btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.reset-btn {
+    background-image: linear-gradient(#e76262, #da1414);
+}

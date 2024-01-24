@@ -4,7 +4,7 @@ import React from 'react';
 const AppointmentNewTable = () => {
     return (
         <Zoom in={true}>
-        <div className='appointment-tables'>
+        <div className='appointment-tables '>
             <table class="table">
                 <tr> 
                     <th class="table-header" id="sno">SNo</th>
