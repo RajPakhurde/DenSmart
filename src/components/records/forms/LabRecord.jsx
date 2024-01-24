@@ -38,19 +38,19 @@ const LabRecords = (props) => {
                     </div>
                 </div>
                 <div className="second-row-lab-records ">
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="impression-date">Impression Date</label>
                         <input type="date" id="impression-date" required />
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="send-date">send Date</label>
                         <input type="date" id="send-date" required />
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="receive-date">Receive Date</label>
                         <input type="date" id="receive-date" required />
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="Insertion-date">send Date</label>
                         <input type="date" id="Insertion-date" required />
                     </div>

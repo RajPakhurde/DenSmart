@@ -6,6 +6,7 @@ const RecordsNav = (props) => {
         props.setCurrentTable(event.target.id);
         props.setHeader("/ " +event.target.id.charAt(0).toUpperCase() + event.target.id.slice(1));
     }
+    
 
 
     return (

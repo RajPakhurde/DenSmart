@@ -34,7 +34,7 @@ const StockHistory = (props) => {
                         <input type="number" id="bal-stock" required />
                         <label>Bal Stock</label> 
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="expiry-date">Expiry Date</label>
                         <input type="date" id="expiry-date" required />
                     </div>

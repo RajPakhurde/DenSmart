@@ -472,13 +472,13 @@ table, th, tr, td {
 }
 
 .whatsapp-icon {
-    color: #7B809A;
+    color: linear-gradient(#404048, #1C1C1D);
     font-size: 40px;
     border-radius: 5px;
 }
 
 .email-icon {
-    color: #7B809A;
+    color: linear-gradient(#404048, #1C1C1D);
     font-size: 40px;
     border-radius: 5px;
 }
@@ -534,7 +534,7 @@ select {
       linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
     color: #7B809A;
     border-radius: 0.25em;
-    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
     /* Remove IE arrow */
     &::-ms-expand {

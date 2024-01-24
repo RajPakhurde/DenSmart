@@ -5,6 +5,14 @@ const CunsultingFee = (props) => {
         props.setCurrentTable(event.target.id);
     }
 
+    var fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - 30);
+    var fromD = fromDate.toISOString().substring(0,10);
+
+    var toDate = new Date();
+    toDate.setDate(toDate.getDate());
+    var toD = toDate.toISOString().substring(0,10);
+
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -13,9 +21,9 @@ const CunsultingFee = (props) => {
                     <option value="alldates">All Dates</option>
                     </select>
                     <p  >From</p>
-                    <input type="date" id="from-date" required />
+                    <input type="date" id="from-date" required defaultValue={fromD}/>
                     <p >To</p>
-                    <input type="date" id="to-date" required />
+                    <input type="date" id="to-date" required defaultValue={toD} />
                 </div>
 
                 <div className="second-div" >

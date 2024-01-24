@@ -28,7 +28,7 @@ const ConsultingFee = (props) => {
                         <input type="number" id="consultant-amount" required />
                         <label>Consultant Amount</label> 
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="date">Date</label>
                         <input type="date" id="date" required />
                     </div>

@@ -26,7 +26,7 @@ const ConsumeMaterial = (props) => {
                     </div>
                 </div>
                 <div className="second-row-lab-records ">
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="date">Date</label>
                         <input type="date" id="date" required />
                     </div>

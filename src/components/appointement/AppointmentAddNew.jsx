@@ -6,6 +6,14 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const AppointmentAddNew = () => {
+    var toDate = new Date();
+    toDate.setDate(toDate.getDate());
+    var toD = toDate.toISOString().substring(0,10);
+
+    const now = new Date();
+    const formattedTime = now.toISOString().slice(11, 16);
+
+    console.log(formattedTime);
    
     return (
         <div className='appointment-booking' >
@@ -35,15 +43,15 @@ const AppointmentAddNew = () => {
               </div>
               <div className="form-element">
                 <label for="form-date">Date</label> <br />
-                <input type="date" id="form-date" required/>
+                <input type="date" id="form-date" required defaultValue={toD}/>
               </div>
               <div className="form-element">
                 <label for="from-time">From Time</label> <br />
-                <input type="time" id="from-time" required/>
+                <input type="time" id="from-time" required defaultValue={formattedTime}/>
               </div>
               <div className="form-element">
                 <label for="to-time">To Time</label> <br />
-                <input type="time" id="to-time" required/>
+                <input type="time" id="to-time" required defaultValue={formattedTime}/>
               </div>
             </div>
             <div id="form-row-3" class="form-row">

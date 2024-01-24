@@ -123,3 +123,90 @@ label {
 .form-heading {
     font-weight: bold;
 }
+
+.accounts-container{
+    width: calc(100% - 340px);
+    height: 95vh;
+    display: inline;
+    position: absolute;
+    top: 100px;
+    right: 0%;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.first-div-accounts{
+    width: calc(100% - 340px);
+    backdrop-filter: blur(14px); 
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); 
+    display: inline-flex;
+    position: fixed;
+    justify-content: space-between;
+    margin-right: 30px;
+    margin-top: 20px;
+    align-items: center;
+    padding-right: 30px;
+    gap: 30px;
+    color: #7B809A;
+    font-family: 'Roboto', sans-serif;
+    z-index: 9;
+    right: 0%; 
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.accounts-date, .accounts-dates{
+    padding-left: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+input[type="date"], input[type="time"] {
+    border: 1px solid #7B809A;
+    box-shadow: 0 0 10px 0 rgba(129, 124, 124, 0.2); 
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-element {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-checkbox {
+    flex-direction: column;
+}
+
+.accounts-footer {
+    width: calc(100% - 340px);
+    display: flex;
+    position: fixed;
+    bottom: 0%;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    backdrop-filter: blur(14px); 
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); 
+    padding: 20px;
+}
+
+.accounts-footer h3 {
+    padding: 10px 20px;
+    background-color: #71e05b79;
+    border-radius: 8px;
+    min-width: 8rem;
+}
+
+.tp {
+    background-color: #e05b5ba4;
+    color: #fff;
+}
+
+.accounts-container i,h1 {
+    padding-top: 20px;
+}

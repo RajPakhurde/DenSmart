@@ -34,11 +34,11 @@ const MaterialRecords = (props) => {
                     </div>
                 </div>
                 <div className="second-row-lab-records ">
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="date">Date</label>
                         <input type="date" id="date" required />
                     </div>
-                    <div className="dates">
+                    <div className="dates form-element">
                         <label for="expiry-date">Expiry Date</label>
                         <input type="date" id="expiry-date" required />
                     </div>
