@@ -76,7 +76,7 @@ const App = () => {
             {currentComp === "planner" && <Planner /> }
             {currentComp === "records" && <Records setHeader={setHeader} /> }
             {currentComp === "accounts" && <Accounts /> }
-            {console.log(header)}
+            {console.log(header)} 
            
         </div>
     );

@@ -18,7 +18,7 @@ const NavItem = ({navitem, active, id, setActiveCompnent, subHeader}) => {
             if (id === "2") {
                 subHeader("/ All");
             }
-            if (id === "5") {
+            else if (id === "5") {
                 subHeader("/ Labrecords")
             }
         }}
