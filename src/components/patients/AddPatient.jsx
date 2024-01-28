@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react'
+
+const AddPatient = (props) => {
+    const [patientName, setPatientName] = useState("")
+    const [regDate, setRegDate] = useState("")
+    const [gender, setGender ] = useState("")
+    const [age, setAge] = useState()
+    const [address, setAddress] = useState("")
+    const [email, setEmail] = useState("")
+    const [mobile, setMobile] = useState()
+
+    // Add data in patient table
+    const onSubmitForm = async (e) => {
+        e.preventDefault();
+        try {
+            const body = {patientName, regDate, gender, age, address, email, mobile};
+            const response = await fetch("http://localhost:8080/patients", {
+                method: "POST",
+                headers: {"content-type": "application/json"},
+                body: JSON.stringify(body)
+            })
+
+            alert("Patient Register Successfully!");
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+   
+
+    return (
+        <div class="popup-record sub-tables">
+            <div className="lab-record-form">
+
+            
+            <div className="form-header">
+                <div className="form-heading">Add New Patient</div>
+                <div className="close-btn" onClick={() =>{
+                    props.setCurrentTable("patient-table");
+                    }}  >&times;</div>
+            </div>
+            <hr />
+
+            <form className="form" onSubmit={onSubmitForm}>
+                <div className="first-row-lab-records ">
+                    <div className="form-element input-container">
+                        <input type="text" id="patient-name" required onChange={e => setPatientName(e.target.value)}/>
+                        <label>Patient Name</label> 
+                    </div>
+                    <div className="form-element input-container">
+                        <input type="number" id="mobile-num" required onChange={e => setMobile(e.target.value)} />
+                        <label>Whatsapp Mobile No</label> 
+                    </div>
+                    <div className="form-element input-container">
+                        <input type="email" id="email" onChange={e => setEmail(e.target.value)} />
+                        <label>Email</label> 
+                    </div>
+                    <div className="dates form-element">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required onChange={e => setRegDate(e.target.value)} />
+                    </div>
+                </div>
+                <div className="second-row-lab-records ">
+                    <div className="form-element input-container">
+                        <input type="text" id="address" required onChange={e => setAddress(e.target.value)} />
+                        <label>Address</label> 
+                    </div>
+                     
+                    <div className="form-element input-container">
+                        <input type="number" id="age" onChange={e => setAge(e.target.value)} />
+                        <label>age</label> 
+                    </div>
+                     
+                    <select name="gender" id="gender" required onChange={e => setGender(e.target.value)} >
+                        <option selected value="Gender">--Gender--</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+          
+                    
+                </div>    
+
+                <hr />
+
+                <div id="form-row-5" className="form-row form-row-5">
+                    <button type="submit" className="submit-btn">Save</button>
+                    <button type="reset" className="reset-btn">Reset</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    )
+};
+
+export default AddPatient;

@@ -486,6 +486,7 @@ table, th, tr, td {
 .input-container{
 	position:relative;
 	margin-bottom:25px;
+    display: flex;
 }
 .input-container label{
 	position:absolute;

@@ -7,6 +7,8 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
 }
 
 .searchbar input {
@@ -168,6 +170,8 @@ input[type="date"], input[type="time"] {
     padding: 10px;
     border-radius: 8px;
 }
+
+ 
 
 .form-element {
     display: flex;
