@@ -62,8 +62,8 @@ const PatientsTable = (props) => {
                                 <td>{patient.gender}</td>
                                 <td>{patient.age}</td>
                                 <td>{patient.address}</td>
-                                <td>{patient.email}</td>
                                 <td>{patient.mobile}</td>
+                                <td>{patient.email}</td>
                                 <td>
                                 <i class="fa-solid fa-pencil"></i>
                                 <i class="fa-solid fa-trash"></i>
