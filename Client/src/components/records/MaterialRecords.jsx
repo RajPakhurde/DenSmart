@@ -59,30 +59,37 @@ const  MaterialRecords = (props) => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="date">Date</th>
-                    <th class="table-header" id="materialname">Material Name</th>
-                    <th class="table-header" id="dealername">Dealer Name</th>
-                    <th class="table-header" id="doses">Doses</th>
-                    <th class="table-header" id="chargesperdoses">Charges Per Doses</th>
-                    <th class="table-header" id="totalcharges">Total Charges</th>
-                    <th class="table-header" id="expirydate">ExpiryDate</th> 
-                    <th class="table-header" id="action">Action</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                    <td>7.00</td>
-                    <td>8.00</td>
-                    <td>New</td>
-                    <td>
-                        <i class="fa-solid fa-pencil"></i> <i class="fa-solid fa-trash"></i>
-                    </td>
-                </tr>
+                    <thead>
+                        <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="date">Date</th>
+                            <th class="table-header" id="materialname">Material Name</th>
+                            <th class="table-header" id="dealername">Dealer Name</th>
+                            <th class="table-header" id="doses">Doses</th>
+                            <th class="table-header" id="chargesperdoses">Charges Per Doses</th>
+                            <th class="table-header" id="totalcharges">Total Charges</th>
+                            <th class="table-header" id="expirydate">ExpiryDate</th> 
+                            <th class="table-header" id="action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allMaterialRecords.map((materialRecord) => {
+                            return <tr>
+                                        <td>{materialRecord.material_record_id}</td>
+                                        <td>{materialRecord.date.split('T')[0]}</td>
+                                        <td>{materialRecord.material_name}</td>
+                                        <td>{materialRecord.dealer}</td>
+                                        <td>{materialRecord.quantity}</td>
+                                        <td>{materialRecord.charges_per_quantity}</td>
+                                        <td>{materialRecord.total_charges}</td>
+                                        <td>{materialRecord.expiry_date.split('T')[0]}</td>
+                                        <td>
+                                            <i class="fa-solid fa-pencil"></i> <i class="fa-solid fa-trash"></i>
+                                        </td>
+                                    </tr>
+                        })}
+                    </tbody>
+                
                 
                 </table>
             </div>

@@ -21,6 +21,7 @@ const MaterialRecords = (props) => {
             }) 
 
             alert("New Material Record Added!");
+            console.log(dealerName);
         } catch (error) {
             console.log(error.message);
         }
@@ -69,7 +70,7 @@ const MaterialRecords = (props) => {
                         <input type="date" id="expiry-date" required onChange={e => setExpiryDate(e.target.value)} />
                     </div>
                     <div>
-                    <select name="dealer-name" id="form-dealer-name" required onChange={e => setDealerName(e.target.value)}  >
+                    <select name="dealer-name" id="form-dealer-name"  required onChange={e => setDealerName(e.target.value)}  >
                         <option value="default">--Dealer--</option>
                         <option value="amit enterprises">Amit Enterprises</option>
                     </select>

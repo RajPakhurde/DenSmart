@@ -68,14 +68,14 @@ app.get("/patients/:id", async (req, res) => {
 
 app.post("/material-record", async (req, res) => {
     try {
-        const {materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealer} = req. body;
+        const {materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealerName} = req. body;
         const newMaterialRecord = await pool.query(
             "INSERT INTO material_record (material_name, charges_per_quantity, total_charges, quantity, date, expiry_date, dealer) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-            [materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealer]
+            [materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealerName]
             );
 
             res.json(newMaterialRecord.rows[0]);
-            console.log(newMaterialRecord.rows[0]);
+            console.log(dealerName);
     } catch (error) {
         console.log(error.message);
     }
