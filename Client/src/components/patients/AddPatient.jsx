@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 const AddPatient = (props) => {
     const [patientName, setPatientName] = useState("")
@@ -22,7 +22,7 @@ const AddPatient = (props) => {
 
             alert("Patient Register Successfully!");
         } catch (error) {
-            console.log(error.message);
+            console.log(error.message); 
         }
     }
 

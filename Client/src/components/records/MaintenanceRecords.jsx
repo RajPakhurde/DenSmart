@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const MaintenanceRecords = (props) => {
+    const [allMaintenanceReocord, setAllMaintenanceRecord] = useState([]);
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
 
     var fromDate = new Date();
-    fromDate.setDate(fromDate.getDate() - 30);
+    fromDate.setDate(fromDate.getDate() - 30); 
     var fromD = fromDate.toISOString().substring(0,10);
 
     var toDate = new Date();
     toDate.setDate(toDate.getDate());
     var toD = toDate.toISOString().substring(0,10);
 
+
+    // Get all Maintenance Records
+    const getAllMaintenanceRecords = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/maintenance-record");
+            const jsonDate = await response.json();
+
+            setAllMaintenanceRecord(jsonDate)
+            console.log(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getAllMaintenanceRecords();
+    }, []);
+ 
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -40,20 +60,32 @@ const MaintenanceRecords = (props) => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="date">Date</th>
-                    <th class="table-header" id="maintenancework">Maintenance Work</th>
-                    <th class="table-header" id="charges">Charges</th>
-                    <th class="table-header" id="action">Action</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                </tr>
+                    <thead>
+                       <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="date">Date</th>
+                            <th class="table-header" id="maintenancework">Maintenance Work</th>
+                            <th class="table-header" id="charges">Charges</th>
+                            <th class="table-header" id="action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allMaintenanceReocord.map((maintenanceRecord) => {
+                            return <tr key={maintenanceRecord.maintenance_record_id}>
+                                {console.log(typeof maintenanceRecord.date)}
+                                        <td>{maintenanceRecord.maintenance_record_id}</td>
+                                        <td>{maintenanceRecord.date.split('T')[0]}</td>
+                                        <td>{maintenanceRecord.maintenance_work}</td>
+                                        <td>{maintenanceRecord.charges_paid}</td>
+                                        <td>
+                                            <i class="fa-solid fa-pencil"></i>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </td>   
+                                    </tr>
+                        })}
+                    </tbody>
+                
+                
                 
                 </table>
             </div>

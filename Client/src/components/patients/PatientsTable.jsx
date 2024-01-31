@@ -14,7 +14,7 @@ const PatientsTable = (props) => {
             const response = await fetch("http://localhost:8080/patients");
             const jsonData = await response.json();
 
-            setPatientsData(jsonData)
+            setPatientsData(jsonData);
         } catch (error) {
             console.log(error.message);
         }

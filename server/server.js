@@ -46,8 +46,6 @@ app.get("/patients", async (req, res) => {
             "SELECT * FROM patients"
             );
         res.json(response.rows);
-        console.log(response.rows);
-        console.log(typeof response.rows);
     } catch (error) {
         console.log(error.message);
     }
@@ -66,7 +64,61 @@ app.get("/patients/:id", async (req, res) => {
     }
 })
 
+// Insert data into material reacord table
 
+app.post("/material-record", async (req, res) => {
+    try {
+        const {materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealer} = req. body;
+        const newMaterialRecord = await pool.query(
+            "INSERT INTO material_record (material_name, charges_per_quantity, total_charges, quantity, date, expiry_date, dealer) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+            [materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealer]
+            );
+
+            res.json(newMaterialRecord.rows[0]);
+            console.log(newMaterialRecord.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// Get all material Records
+app.get("/material-record", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM material_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// INSERT DATA INTO MAINTENANCE RECORD TABLE
+ 
+app.post("/maintenance-record", async(req, res) => {
+    try {
+        let {chargesPaid, date, maintenanceWork} = req.body;
+        const newPatient = await pool.query(
+            "INSERT INTO maintenance_record (charges_paid, date, maintenance_work) VALUES($1, $2, $3) RETURNING *",
+            [chargesPaid, date, maintenanceWork]
+        );
+
+        res.json(newPatient.rows[0]);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET ALL MAINTENANCE RECORDS
+app.get("/maintenance-record", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM maintenance_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 app.listen(port, () => {
     console.log("Server is running on port: ",port);

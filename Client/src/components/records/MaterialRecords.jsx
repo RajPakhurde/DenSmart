@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const  MaterialRecords = (props) => {
+    const [allMaterialRecords, setAllMaterialRecords] = useState([]);
+
+    // To change the current component
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -12,6 +15,22 @@ const  MaterialRecords = (props) => {
     var toDate = new Date();
     toDate.setDate(toDate.getDate());
     var toD = toDate.toISOString().substring(0,10);
+
+    // Get all material data 
+    const getAllMaterialData = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/material-record");
+            const jsonData = await response.json();
+
+            setAllMaterialRecords(jsonData);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getAllMaterialData();
+    }, []);
 
     return (
         <div className="sub-tables">
@@ -48,7 +67,7 @@ const  MaterialRecords = (props) => {
                     <th class="table-header" id="doses">Doses</th>
                     <th class="table-header" id="chargesperdoses">Charges Per Doses</th>
                     <th class="table-header" id="totalcharges">Total Charges</th>
-                    <th class="table-header" id="expirydate">ExpiryDate</th>
+                    <th class="table-header" id="expirydate">ExpiryDate</th> 
                     <th class="table-header" id="action">Action</th>
                 </tr>
                 <tr>
