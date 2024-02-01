@@ -21,8 +21,10 @@ const ConsumeMaterial = (props) => {
                         <label>Material Name</label> 
                     </div>
                     <div className="form-element input-container">
-                        <input type="text" id="user-name" required />
-                        <label>User Name</label> 
+                        <input type="text" id="user-name" required 
+                        value={props.patientName !== undefined ? props.patientName : ""}
+                        />
+                        <label>Patient Name</label> 
                     </div>
                 </div>
                 <div className="second-row-lab-records ">

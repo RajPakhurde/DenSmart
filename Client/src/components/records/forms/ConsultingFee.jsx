@@ -17,7 +17,9 @@ const ConsultingFee = (props) => {
             <form className="form" >
                 <div className="first-row-lab-records ">
                     <div className="form-element input-container">
-                        <input type="text" id="patient-name" required />
+                        <input type="text" id="patient-name" required 
+                        value={props.patientName !== undefined ? props.patientName : ""}
+                        />
                         <label>Patient Name</label> 
                     </div>
                     <div className="form-element input-container">

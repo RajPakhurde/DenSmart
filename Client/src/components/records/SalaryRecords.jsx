@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const  SalaryRecords = (props) => {
+    const [allSalaryRecord, setAllSalaryRecord] = useState([]);
+
+    const getAllSalaryRecords = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/salary");
+            const jsonDate = await response.json();
+
+            setAllSalaryRecord(jsonDate);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getAllSalaryRecords();
+    }, []);
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -40,20 +58,30 @@ const  SalaryRecords = (props) => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="date">Date</th>
-                    <th class="table-header" id="employeename">Employee Name</th>
-                    <th class="table-header" id="paidcharges">Paid Charges</th>
-                    <th class="table-header" id="action">Action</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                </tr>
+                    <thead>
+                        <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="date">Date</th>
+                            <th class="table-header" id="employeename">Employee Name</th>
+                            <th class="table-header" id="paidcharges">Paid Charges</th>
+                            <th class="table-header" id="action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allSalaryRecord.map((salaryRecord) => {
+                            return <tr>
+                                        <td>{salaryRecord.salary_record_id}</td>
+                                        <td>{salaryRecord.date}</td>
+                                        <td>{salaryRecord.employee_name}</td>
+                                        <td>{salaryRecord.salary_paid}</td>
+                                        <td>
+                                        <i class="fa-solid fa-pencil"></i>
+                                        <i class="fa-solid fa-trash"></i>
+                                        </td>
+                                    </tr>
+                        })}
+                    </tbody>  
+                
                 
                 </table>
             </div>

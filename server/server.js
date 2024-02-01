@@ -56,7 +56,7 @@ app.get("/patients/:id", async (req, res) => {
     try {
         const {id} = req.params;
         const response = await pool.query(
-            "SELECT * FROM patients WHERE id=$1", [id]
+            "SELECT * FROM patients WHERE pid=$1", [id]
         );
         res.json(response.rows[0]);
     } catch (error) {
@@ -96,7 +96,7 @@ app.get("/material-record", async (req, res) => {
  
 app.post("/maintenance-record", async(req, res) => {
     try {
-        let {chargesPaid, date, maintenanceWork} = req.body;
+        const {chargesPaid, date, maintenanceWork} = req.body;
         const newPatient = await pool.query(
             "INSERT INTO maintenance_record (charges_paid, date, maintenance_work) VALUES($1, $2, $3) RETURNING *",
             [chargesPaid, date, maintenanceWork]
@@ -113,6 +113,83 @@ app.post("/maintenance-record", async(req, res) => {
 app.get("/maintenance-record", async (req, res) => {
     try {
         const response = await pool.query("SELECT * FROM maintenance_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// INSERT DATA INTO SALARY RECORD TABLE
+app.post("/salary", async (req, res) => {
+    try {
+        const {employeeName, salaryPaid, date} = req.body;
+        const newSalaryRecord = await pool.query(
+            "INSERT INTO salary_record (employee_name, salary_paid, date) VALUES ($1, $2, $3) RETURNING *",
+            [employeeName, salaryPaid, date]
+        );
+
+        res.json(newSalaryRecord.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET ALL SALARY RECORDS
+app.get("/salary", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM salary_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// INSERT DATA INTO STOCK HISTORY RECORD TABLE
+app.post("/stock", async (req, res) => {
+    try {
+        const {materialName, totalStock, usedStock, balStock, expiryDate, leftDays} = req.body;
+        const newStockRecord = await pool.query(
+            "INSERT INTO stock_history_record (material_name, total_stock, used_stock, bal_stock, expiry_date, left_days) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [materialName, totalStock, usedStock, balStock, expiryDate, leftDays]
+        );
+
+        res.json(newStockRecord.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// GET ALL STOCK HISTORY RECORDS
+app.get("/stock", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM stock_history_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+app.post("/appointment", async (req, res) => {
+    try {
+        const {patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate} = req.body;
+        const newAppointment = await pool.query(
+            "INSERT INTO appointment (patient_name, treatment, doctor_name, in_time, out_time, status, mobile, patient_iD, app_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+            [patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate]
+        );
+
+        res.json(newAppointment.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// GET ALL STOCK HISTORY RECORDS
+app.get("/appointment", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM appointment");
 
         res.json(response.rows);
     } catch (error) {

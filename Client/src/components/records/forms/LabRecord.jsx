@@ -17,11 +17,15 @@ const LabRecords = (props) => {
             <form className="form" >
                 <div className="first-row-lab-records ">
                     <div className="form-element input-container">
-                        <input type="text" id="patient-name" required />
+                        <input type="text" id="patient-name" required 
+                        value={props.patientName !== undefined ? props.patientName : ""}
+                        />
                         <label>Patient Name</label> 
                     </div>
                     <div className="form-element input-container">
-                        <input type="number" id="mobile-no" required />
+                        <input type="number" id="mobile-no" required 
+                        value={props.mobileNo !== undefined ? props.mobileNo : ""}
+                        />
                         <label>Mobile No</label> 
                     </div>
                     <div className="form-element input-container">

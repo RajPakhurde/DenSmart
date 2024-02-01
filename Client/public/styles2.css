@@ -214,3 +214,26 @@ input[type="date"], input[type="time"] {
 .accounts-container i,h1 {
     padding-top: 20px;
 }
+
+.patient-info-selected{
+    display: flex;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); 
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #1C1C1D;
+    justify-content: space-between;
+    padding-right: 40px;
+}
+
+.patient-selected-div2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-patient-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

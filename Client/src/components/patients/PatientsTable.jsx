@@ -4,8 +4,10 @@ const PatientsTable = (props) => {
     const [patientsData, setPatientsData] = useState([]);
 
 
-    function handleClick(event) {
-        props.setCurrentTable(event.target.id);
+    function handleClick(patientID) {
+        // props.setCurrentTable(event.target.id);
+        props.setPatientID(patientID)
+        console.log(patientID);
     }
 
      // Get all patients data
@@ -56,7 +58,14 @@ const PatientsTable = (props) => {
                     {patientsData.map((patient) => {
                         return <tr>
                                 <td>{patient.id}</td>
-                                <td>{patient.patient_name}</td>
+                                <td
+                                id="patient-info"
+                               
+                                onClick={(event) => {
+                                    props.setCurrentTable(event.target.id);
+                                    handleClick(patient.pid);
+                                }}
+                                >{patient.patient_name}</td>
                                 <td>{patient.pid}</td>
                                 <td>{patient.reg_date.split('T')[0]}</td>
                                 <td>{patient.gender}</td>

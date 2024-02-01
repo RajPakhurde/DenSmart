@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState, useEffect }  from "react";
 
 const  StockHistory = (props) => {
+    const [allStockHistory, setAllStockHistory] = useState([]);
+
+    // Get all stock history data
+    const getStockHistory = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/stock");
+            const jsonData = await response.json();
+
+            setAllStockHistory(jsonData);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {   
+        getStockHistory();
+    },[]);
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -40,24 +58,35 @@ const  StockHistory = (props) => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="materialsname">Materials Name</th>
-                    <th class="table-header" id="totalstock">Total Stock</th>
-                    <th class="table-header" id="doses">Used Stock</th>
-                    <th class="table-header" id="username">Bal Stock</th>
-                    <th class="table-header" id="action">Expiry Date</th>
-                    <th class="table-header" id="action">Left Days</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+                    <thead>
+                        <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="materialsname">Materials Name</th>
+                            <th class="table-header" id="totalstock">Total Stock</th>
+                            <th class="table-header" id="doses">Used Stock</th>
+                            <th class="table-header" id="username">Bal Stock</th>
+                            <th class="table-header" id="action">Expiry Date</th>
+                            <th class="table-header" id="action">Left Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allStockHistory.map((stock) => {
+                            return  <tr>
+                                        <td>{stock.stock_history_id}</td>
+                                        <td>{stock.material_name}</td>
+                                        <td>{stock.total_stock}</td>
+                                        <td>{stock.used_stock}</td>
+                                        <td>{stock.bal_stock}</td>
+                                        <td>{stock.expiry_date.split('T')[0]}</td>
+                                        <td>1</td>
+                                        <td>
+                                        <i class="fa-solid fa-pencil"></i>
+                                        <i class="fa-solid fa-trash"></i>
+                                        </td>
+                                    </tr>
+                        })}
+                    </tbody>
+               
                 
                 </table>
             </div>
