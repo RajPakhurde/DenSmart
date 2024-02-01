@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const SalaryRecords = (props) => {
     const [employeeName, setEmployeeName] = useState("");
     const [salaryPaid, setSalaryPaid] = useState();
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState();
 
     const onSubmitForm = async (e) => {
         e.preventDefault();

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const CunsultingFee = (props) => {
+    const [allConsultantingFee, setAllConsultingFee] = useState([]);
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -12,6 +14,22 @@ const CunsultingFee = (props) => {
     var toDate = new Date();
     toDate.setDate(toDate.getDate());
     var toD = toDate.toISOString().substring(0,10);
+
+    // Get all ConsultingFee Records
+    const getAllConsultingFee = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/consultingfee");
+            const jsonDate = await response.json();
+
+            setAllConsultingFee(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getAllConsultingFee();
+    }, []);
 
     return (
         <div className="sub-tables">
@@ -40,28 +58,34 @@ const CunsultingFee = (props) => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="date">Date</th>
-                    <th class="table-header" id="patient-name">Patient Name</th>
-                    <th class="table-header" id="mobile">Treatment Name</th>
-                    <th class="table-header" id="labwork">Doctor Name</th>
-                    <th class="table-header" id="labname">Mode of Payment</th>
-                    <th class="table-header" id="impressiondate">Credited Amount</th>
-                    <th class="table-header" id="senddate">Consultatnt Amount</th>
-                    <th class="table-header" id="receiveddate">Admin Amount</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                    <td>7.00</td>
-                    <td>8.00</td>
-                    <td>New</td>
-                    <td>1</td> 
-                </tr>
+                    <thead>
+                        <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="date">Date</th>
+                            <th class="table-header" id="patient-name">Patient Name</th>
+                            <th class="table-header" id="mobile">Treatment Name</th>
+                            <th class="table-header" id="labwork">Doctor Name</th>
+                            <th class="table-header" id="labname">Mode of Payment</th>
+                            <th class="table-header" id="impressiondate">Credited Amount</th>
+                            <th class="table-header" id="senddate">Consultatnt Amount</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allConsultantingFee.map((consultingfee) => {
+                            return <tr>
+                                        <td>{consultingfee.consulting_fee_id}</td>
+                                        <td>{consultingfee.date.split('T')[0]}</td>
+                                        <td>{consultingfee.patient_name}</td>
+                                        <td>{consultingfee.treatment}</td>
+                                        <td>{consultingfee.doctor_name}</td>
+                                        <td>{consultingfee.mode_of_payment}</td>
+                                        <td>{consultingfee.creadited_amount}</td>
+                                        <td>{consultingfee.consultant_amount}</td>
+                                    </tr>
+                        })}
+                    </tbody>
+                
                 
                 </table>
             </div>

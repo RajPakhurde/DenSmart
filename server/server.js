@@ -172,6 +172,7 @@ app.get("/stock", async (req, res) => {
     }
 })
 
+// INSERT DATA INTO APPOINETMENT TABLE
 app.post("/appointment", async (req, res) => {
     try {
         const {patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate} = req.body;
@@ -186,7 +187,7 @@ app.post("/appointment", async (req, res) => {
     }
 })
  
-// GET ALL STOCK HISTORY RECORDS
+// GET ALL Appointment RECORDS
 app.get("/appointment", async (req, res) => {
     try {
         const response = await pool.query("SELECT * FROM appointment");
@@ -196,6 +197,108 @@ app.get("/appointment", async (req, res) => {
         console.log(error.message);
     }
 })
+
+app.get("/appointment/new", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["new"]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+app.get("/appointment/checkin", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["checkin"]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// INSERT DATA INTO LAB RECORD TABLE
+app.post("/lab", async (req, res) => {
+    try {
+        const {patientName, mobile, labWork, labName, labCharges, impressionDate, sendDate, reciveDate, insertionDate, patientID} = req.body;
+        const newLabReord = await pool.query(
+            "INSERT INTO lab_record (patient_name, mobile, lab_work, lab_name, lab_charges, impression_date, send_date, recive_date, insertion_date, patient_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+            [patientName, mobile, labWork, labName, labCharges, impressionDate, sendDate, reciveDate, insertionDate, patientID]
+        );
+
+        res.json(newLabReord.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// GET ALL LAB RECORD RECORDS
+app.get("/lab", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM lab_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// INSERT DATA INTO CONSUME MATERIAL RECORD TABLE
+app.post("/consumematerial", async (req, res) => {
+    try {
+        const {patientName, materialName, date, doses, patientID} = req.body;
+        const newConsumeMaterial = await pool.query(
+            "INSERT INTO consume_material_record (user_name, material_name, date, doses, patient_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [patientName, materialName, date, doses, patientID]
+        );
+
+        res.json(newConsumeMaterial.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// GET ALL CONSUME MATERIAL RECORDS
+app.get("/consumematerial", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM consume_material_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+
+// INSERT INTO CONSULTING FEE TABLE
+app.post("/consultingfee", async (req, res) => {
+    try {
+        const {patientName, treatment, doctorName, creaditedAmount,consultingAmount, date, modeOfPayment, patientID} = req.body;
+        const newConsultingFee = await pool.query(
+            "INSERT INTO consulting_fee (patient_name, treatment, doctor_name, creadited_amount,consultant_amount, date, mode_of_payment,  patient_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+            [patientName, treatment, doctorName, creaditedAmount,consultingAmount, date, modeOfPayment, patientID]
+        );
+
+        res.json(newConsultingFee.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+ 
+// GET ALL CONSUME MATERIAL RECORDS
+app.get("/consultingfee", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM consulting_fee");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+
+
 
 app.listen(port, () => {
     console.log("Server is running on port: ",port);

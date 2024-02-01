@@ -22,8 +22,7 @@ const MaintenanceRecords = (props) => {
             const response = await fetch("http://localhost:8080/maintenance-record");
             const jsonDate = await response.json();
 
-            setAllMaintenanceRecord(jsonDate)
-            console.log(jsonDate);
+            setAllMaintenanceRecord(jsonDate);
         } catch (error) {
             console.log(error.message);
         }

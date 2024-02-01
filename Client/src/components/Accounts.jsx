@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Accounts = () => {
+    const [allConsultantingFee, setAllConsultingFee] = useState([]);
+
     var fromDate = new Date();
     fromDate.setDate(fromDate.getDate() - 30);
     var fromD = fromDate.toISOString().substring(0,10);
@@ -9,6 +11,21 @@ const Accounts = () => {
     toDate.setDate(toDate.getDate());
     var toD = toDate.toISOString().substring(0,10);
      
+    // Get all Account Records
+    const getAllConsultingFee = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/consultingfee");
+            const jsonDate = await response.json();
+
+            setAllConsultingFee(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getAllConsultingFee();
+    }, []);
      
     return (
         <div className="sub-tables accounts-container">
@@ -62,24 +79,30 @@ const Accounts = () => {
 
             <div class="patient-info">
                 <table class="table">
-                <tr>
-                    <th class="table-header" id="sno">SNo</th>
-                    <th class="table-header" id="materialsname">Date</th>
-                    <th class="table-header" id="totalstock">Patient Name</th>
-                    <th class="table-header" id="doses">Doctor Name</th>
-                    <th class="table-header" id="username">Treatment Name</th>
-                    <th class="table-header" id="action">Cerdited Amount</th>
-                    <th class="table-header" id="action">Mode of Payment</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>raj pakhurde</td>
-                    <td>fpd</td>
-                    <td>ritesh</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+                    <thead>
+                        <tr>
+                            <th class="table-header" id="sno">SNo</th>
+                            <th class="table-header" id="materialsname">Date</th>
+                            <th class="table-header" id="totalstock">Patient Name</th>
+                            <th class="table-header" id="doses">Doctor Name</th>
+                            <th class="table-header" id="username">Treatment Name</th>
+                            <th class="table-header" id="action">Cerdited Amount</th>
+                            <th class="table-header" id="action">Mode of Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allConsultantingFee.map((consultingfee) => {
+                            return <tr>
+                                        <td>{consultingfee.consulting_fee_id}</td>
+                                        <td>{consultingfee.date.split('T')[0]}</td>
+                                        <td>{consultingfee.patient_name}</td>
+                                        <td>{consultingfee.doctor_name}</td>
+                                        <td>{consultingfee.treatment}</td>
+                                        <td>{consultingfee.creadited_amount}</td>
+                                        <td>{consultingfee.mode_of_payment}</td>
+                                    </tr>
+                        })}
+                    </tbody>
                 
                 </table>
             </div>

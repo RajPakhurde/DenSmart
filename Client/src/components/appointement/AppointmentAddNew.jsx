@@ -17,14 +17,8 @@ const AppointmentAddNew = (props) => {
     const [appDate, setDate] = useState("");
     const [email, setEmail] = useState(props.email);
     
-    // if (props.patientName !== undefined) {
-    //   setPatientName(props.patientName);
-    // } else {
-    //   setPatientName("");
-    // }
    
     const onSubmitForm = async (e) => {
-
       e.preventDefault();
       try {
           const body = {patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate};
