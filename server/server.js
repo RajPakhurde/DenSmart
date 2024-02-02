@@ -198,17 +198,32 @@ app.get("/appointment", async (req, res) => {
     }
 })
 
-app.get("/appointment/new", async (req, res) => {
+app.get("/appointment/:id", async (req, res) => {
     try {
-        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["new"]);
+        const {id} = req.params;
+        const response = await pool.query("SELECT * FROM appointment WHERE patient_id = $1",[id]);
 
         res.json(response.rows);
+       
     } catch (error) {
         console.log(error.message);
     }
 })
 
-app.get("/appointment/checkin", async (req, res) => {
+app.get("/new", async (req, res) => {
+    console.log("hello");
+    try {
+        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["new"]);
+
+        res.json(response.rows);
+        console.log("getting response");
+        console.log(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+app.get("/checkin", async (req, res) => {
     try {
         const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["checkin"]);
 
@@ -217,6 +232,44 @@ app.get("/appointment/checkin", async (req, res) => {
         console.log(error.message);
     }
 })
+
+app.get("/cancel", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["cancel"]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+app.get("/completed", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM appointment WHERE status=$1", ["completed"]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// UPDATE STATUS FROM APPOINTMENT TABLE
+app.put("/appointment/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {status} = req.body;
+        const updateStatus = await pool.query(
+            "UPDATE appointment SET status = $1 WHERE patient_id = $2",
+            [status, id]
+        )
+
+        res.json("Status updated!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+
  
 // INSERT DATA INTO LAB RECORD TABLE
 app.post("/lab", async (req, res) => {
@@ -237,6 +290,18 @@ app.post("/lab", async (req, res) => {
 app.get("/lab", async (req, res) => {
     try {
         const response = await pool.query("SELECT * FROM lab_record");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET SINGLE PATIENT LAB RECORD
+app.get("/lab/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const response = await pool.query("SELECT * FROM lab_record WHERE patient_id = $1",[id]);
 
         res.json(response.rows);
     } catch (error) {
@@ -270,6 +335,18 @@ app.get("/consumematerial", async (req, res) => {
     }
 })
 
+// GET SINGLE CONSUME MATERIAL RECORD OF PATIENT
+app.get("/consumematerial/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const response = await pool.query("SELECT * FROM consume_material_record WHERE patient_id = $1",[id]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 
 // INSERT INTO CONSULTING FEE TABLE
 app.post("/consultingfee", async (req, res) => {
@@ -290,6 +367,18 @@ app.post("/consultingfee", async (req, res) => {
 app.get("/consultingfee", async (req, res) => {
     try {
         const response = await pool.query("SELECT * FROM consulting_fee");
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET SINGLE CONSULTING FEE RECORD OF PATIENT
+app.get("/consultingfee/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const response = await pool.query("SELECT * FROM consulting_fee WHERE patient_id = $1",[id]);
 
         res.json(response.rows);
     } catch (error) {

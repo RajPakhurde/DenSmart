@@ -26,6 +26,8 @@ const PatientsTable = (props) => {
         getPatientsData();
     },[]);
 
+    let sNo = 1;
+
     return (
         <div className="patient-info">
             <div className="searchbar">
@@ -57,7 +59,7 @@ const PatientsTable = (props) => {
                 <tbody>
                     {patientsData.map((patient) => {
                         return <tr>
-                                <td>{patient.id}</td>
+                                <td>{sNo++}</td>
                                 <td
                                 id="patient-info"
                                

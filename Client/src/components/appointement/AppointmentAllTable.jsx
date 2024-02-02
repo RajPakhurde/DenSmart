@@ -20,6 +20,8 @@ const AppointmentAllTable = () => {
         getAllAppointment();
     }, []);
 
+    let sNo = 1;
+
     return (
         <Zoom in={true} >
         <div className='appointment-tables '>
@@ -34,13 +36,13 @@ const AppointmentAllTable = () => {
                         <th class="table-header" id="intime">In Time</th>
                         <th class="table-header" id="outtime">Out Time</th>
                         <th class="table-header" id="status">Status</th>
-                        <th class="table-header" id="controls">Controls</th>
+                        {/* <th class="table-header" id="controls">Controls</th> */}
                     </tr>
                 </thead>
                 <tbody>
                     {allAppointment.map((appointment) => {
                         return <tr>
-                                    <td>{appointment.appointment_id}</td>
+                                    <td>{sNo++}</td>
                                     <td>{appointment.patient_name}</td>
                                     <td>{appointment.app_date.split('T')[0]}</td>
                                     <td>{appointment.treatment}</td>
@@ -48,10 +50,10 @@ const AppointmentAllTable = () => {
                                     <td>{appointment.in_time}</td>
                                     <td>{appointment.out_time}</td>
                                     <td>{appointment.status}</td>
-                                    <td>
+                                    {/* <td>
                                         <i class="fa-solid fa-pencil"></i>
                                         <i class="fa-solid fa-trash"></i>
-                                    </td> 
+                                    </td>  */}
                                 </tr>
                     })}
                 </tbody>

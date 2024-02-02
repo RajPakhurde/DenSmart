@@ -31,6 +31,7 @@ const CunsultingFee = (props) => {
         getAllConsultingFee();
     }, []);
 
+    let sNo = 1;
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -74,7 +75,7 @@ const CunsultingFee = (props) => {
                     <tbody>
                         {allConsultantingFee.map((consultingfee) => {
                             return <tr>
-                                        <td>{consultingfee.consulting_fee_id}</td>
+                                        <td>{sNo++}</td>
                                         <td>{consultingfee.date.split('T')[0]}</td>
                                         <td>{consultingfee.patient_name}</td>
                                         <td>{consultingfee.treatment}</td>

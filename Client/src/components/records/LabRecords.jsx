@@ -31,6 +31,8 @@ const  LabRecords = (props) => {
         getAllLabRecords();
     }, []);
 
+    let sNo = 1;
+
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -76,7 +78,7 @@ const  LabRecords = (props) => {
                     <tbody>
                         {allLabRecords.map((labRecord) => {
                             return <tr>
-                                        <td>{labRecord.lab_record_id}</td>
+                                        <td>{sNo++}</td>
                                         <td>{labRecord.patient_name}</td>
                                         <td>{labRecord.mobile}</td>
                                         <td>{labRecord.lab_work}</td>

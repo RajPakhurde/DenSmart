@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Zoom } from '@mui/material';
+import { Zoom, snackbarClasses } from '@mui/material';
 
 const AppointmentCheckinTable = () => {
     const [checkinAppointment, setCheckinAppointment] = useState([]);
@@ -7,7 +7,7 @@ const AppointmentCheckinTable = () => {
     // Get all Appointment Records
     const getCheckinAppointment = async () => {
        try {
-           const response = await fetch("http://localhost:8080/appointment/checkin ");
+           const response = await fetch("http://localhost:8080/checkin ");
            const jsonDate = await response.json();
 
            setCheckinAppointment(jsonDate);
@@ -19,6 +19,27 @@ const AppointmentCheckinTable = () => {
    useEffect(() => {
     getCheckinAppointment();
    }, []);
+
+   // Update status
+   const updateStatus = async (e, status) => { 
+        try {
+            // console.log(e.target.id, status);
+            const body = {status};
+            const id = e.target.id;
+            const response = await fetch("http://localhost:8080/appointment/"+id, {
+                method: "PUT",
+                headers: {"content-type": "application/json"},
+                body: JSON.stringify(body)
+            }) 
+        
+            alert("Status updated");
+          
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+   let sNo = 1;
 
     return (
         <Zoom in={true}>
@@ -40,7 +61,7 @@ const AppointmentCheckinTable = () => {
                 <tbody>
                     {checkinAppointment.map((appointment) => {
                         return <tr>
-                                    <td>{appointment.appointment_id}</td>
+                                    <td>{sNo++}</td>
                                     <td>{appointment.patient_name}</td>
                                     <td>{appointment.app_date.split('T')[0]}</td>
                                     <td>{appointment.treatment}</td>
@@ -48,9 +69,17 @@ const AppointmentCheckinTable = () => {
                                     <td>{appointment.in_time}</td>
                                     <td>{appointment.out_time}</td>
                                     <td>{appointment.status}</td>
-                                    <td>
-                                        <i class="fa-solid fa-pencil"></i>
-                                        <i class="fa-solid fa-trash"></i>
+                                    <td className='controls'>
+                                        <i class="fa-solid fa-xmark" id={appointment.patient_id}
+                                        onClick={(e) => {
+                                             updateStatus(e, "cancel");
+                                        }}
+                                        ></i>
+                                        <i class="fa-solid fa-check" id={appointment.patient_id}
+                                        onClick={(e) => {
+                                            updateStatus(e, "completed");
+                                        }}
+                                        ></i>
                                     </td> 
                                 </tr>
                     })}
