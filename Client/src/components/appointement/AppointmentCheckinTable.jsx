@@ -31,6 +31,8 @@ const AppointmentCheckinTable = () => {
                 headers: {"content-type": "application/json"},
                 body: JSON.stringify(body)
             }) 
+
+            getCheckinAppointment();
         
             alert("Status updated");
           

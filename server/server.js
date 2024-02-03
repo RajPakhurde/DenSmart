@@ -31,6 +31,10 @@ app.post("/patients", async(req, res) => {
             "INSERT INTO patients (patient_name, pid, reg_date, gender, age, address, mobile, email) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
             [patientName, newUid, regDate, gender,age, address, mobile, email]
         );
+
+        const updateTable = await pool.query(
+            "UPDATE patients SET document_with_index = to_tsvector(patient_name || ' ' || pid || ' ' || coalesce(mobile, ''))"
+        )
     
         res.json(newPatient.rows[0]);
         
@@ -74,8 +78,8 @@ app.post("/material-record", async (req, res) => {
             [materialName, chargesPerQuantity, totalCharges, quantity, date, expiryDate, dealerName]
             );
 
-            res.json(newMaterialRecord.rows[0]);
-            console.log(dealerName);
+        const updateMaterail = await pool.query("UPDATE material_record SET document_with_index = to_tsvector(material_name || ' ' || coalesce(dealer, ''))")    
+        res.json(newMaterialRecord.rows[0]);
     } catch (error) {
         console.log(error.message);
     }
@@ -102,6 +106,7 @@ app.post("/maintenance-record", async(req, res) => {
             [chargesPaid, date, maintenanceWork]
         );
 
+        const updateMaintenance = await pool.query("UPDATE maintenance_record SET document_with_index = to_tsvector(coalesce(maintenance_work, ''))")
         res.json(newPatient.rows[0]);
         
     } catch (error) {
@@ -129,6 +134,8 @@ app.post("/salary", async (req, res) => {
             [employeeName, salaryPaid, date]
         );
 
+        const updateSalary = await pool.query("UPDATE salary_record SET document_with_index = to_tsvector(coalesce(employee_name, ''))")
+
         res.json(newSalaryRecord.rows[0]);
     } catch (error) {
         console.log(error.message);
@@ -154,6 +161,8 @@ app.post("/stock", async (req, res) => {
             "INSERT INTO stock_history_record (material_name, total_stock, used_stock, bal_stock, expiry_date, left_days) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
             [materialName, totalStock, usedStock, balStock, expiryDate, leftDays]
         );
+
+        const updateStock = await pool.query("UPDATE stock_history_record SET document_with_index = to_tsvector( coalesce(material_name  , ''))")
 
         res.json(newStockRecord.rows[0]);
     } catch (error) {
@@ -280,6 +289,9 @@ app.post("/lab", async (req, res) => {
             [patientName, mobile, labWork, labName, labCharges, impressionDate, sendDate, reciveDate, insertionDate, patientID]
         );
 
+        const updateLab = await pool.query(
+            "UPDATE lab_record SET document_with_index = to_tsvector(patient_name || ' ' || lab_name || ' ' || coalesce(mobile, ''))"
+            )
         res.json(newLabReord.rows[0]);
     } catch (error) {
         console.log(error.message);
@@ -317,6 +329,8 @@ app.post("/consumematerial", async (req, res) => {
             "INSERT INTO consume_material_record (user_name, material_name, date, doses, patient_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
             [patientName, materialName, date, doses, patientID]
         );
+
+        const updateConsume = await pool.query("UPDATE consume_material_record SET document_with_index = to_tsvector(material_name || ' ' || coalesce(user_name, ''))")
 
         res.json(newConsumeMaterial.rows[0]);
     } catch (error) {
@@ -357,6 +371,8 @@ app.post("/consultingfee", async (req, res) => {
             [patientName, treatment, doctorName, creaditedAmount,consultingAmount, date, modeOfPayment, patientID]
         );
 
+        const updateConsultingfee = await pool.query("UPDATE consulting_fee SET document_with_index = to_tsvector(coalesce(patient_name, ''))")
+
         res.json(newConsultingFee.rows[0]);
     } catch (error) {
         console.log(error.message);
@@ -386,6 +402,101 @@ app.get("/consultingfee/:id", async (req, res) => {
     }
 })
 
+// SEARCH QUERY FOR PATIENT TABLE
+app.get("/search-patient", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM patients WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR LAB RECORD
+app.get("/search-lab", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM lab_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR MATERIAL RECORD
+app.get("/search-material", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM material_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR Maintenance RECORD
+app.get("/search-maintenance", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM maintenance_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR salary RECORD
+app.get("/search-salary", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM salary_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR Consume RECORD
+app.get("/search-consume", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM consume_material_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR stock RECORD
+app.get("/search-stock", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM stock_history_record WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// SEARCH QUERY FOR CONSULTING FEE RECORD
+app.get("/search-consultingfee", async (req, res) => {
+    try {
+        const searchTerm  = req.query.term;
+        const response = await pool.query("SELECT * FROM consulting_fee WHERE document_with_index @@ to_tsquery($1)",[searchTerm]);
+        res.json(response.rows);
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 
 

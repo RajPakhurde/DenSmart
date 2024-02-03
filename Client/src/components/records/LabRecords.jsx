@@ -27,6 +27,20 @@ const  LabRecords = (props) => {
         }
     }
 
+    // Search 
+    const searchQuery = async (e) => {
+        try {
+            const response = await fetch("http://localhost:8080/search-lab?term="+e.target.value);
+            const jsonData = await response.json();
+
+            if (jsonData.length === 0) return getAllLabRecords()
+            setAllLabRecords(jsonData); 
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(() => {
         getAllLabRecords();
     }, []);
@@ -48,8 +62,9 @@ const  LabRecords = (props) => {
 
                 <div className="second-div" >
                     <div className="lab-record-searchbar searchbar input-container">
-                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" PID / Name / Mobile No"/>
-                        <p><i class="fa-solid fa-magnifying-glass"></i></p>
+                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" Patient name / lab name / Mobile No"
+                        onChange={searchQuery}
+                        />
                     </div>
                     <div>
                         <button id="new-lab-record" className="new-btn-appointment" onClick={handleClick}>+ Add New</button>

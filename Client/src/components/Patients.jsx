@@ -15,7 +15,8 @@ const Patients = () => {
     const [mobileNo, setMobileNo] = useState();
     const [email, setEmail] = useState("");
     const [gender, setGender] = useState("");
-
+     
+    console.log();
 
     return (
         <div className='patients-container'>

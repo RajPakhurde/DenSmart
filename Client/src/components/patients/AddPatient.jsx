@@ -20,7 +20,15 @@ const AddPatient = (props) => {
                 body: JSON.stringify(body)
             })
 
+            setPatientName("");
+            setRegDate("");
+            setGender("");
+            setAge("");
+            setAddress("");
+            setEmail("");
+            setMobile("");
             alert("Patient Register Successfully!");
+
         } catch (error) {
             console.log(error.message); 
         }
@@ -44,15 +52,15 @@ const AddPatient = (props) => {
             <form className="form" onSubmit={onSubmitForm}>
                 <div className="first-row-lab-records ">
                     <div className="form-element input-container">
-                        <input type="text" id="patient-name" required onChange={e => setPatientName(e.target.value)}/>
+                        <input type="text" id="patient-name" required value={patientName} onChange={e => setPatientName(e.target.value)}/>
                         <label>Patient Name</label> 
                     </div>
                     <div className="form-element input-container">
-                        <input type="number" id="mobile-num" required onChange={e => setMobile(e.target.value)} />
+                        <input type="number" id="mobile-num" required value={mobile} onChange={e => setMobile(e.target.value)} />
                         <label>Whatsapp Mobile No</label> 
                     </div>
                     <div className="form-element input-container">
-                        <input type="email" id="email" onChange={e => setEmail(e.target.value)} />
+                        <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} />
                         <label>Email</label> 
                     </div>
                     <div className="dates form-element">
@@ -62,16 +70,16 @@ const AddPatient = (props) => {
                 </div>
                 <div className="second-row-lab-records ">
                     <div className="form-element input-container">
-                        <input type="text" id="address" required onChange={e => setAddress(e.target.value)} />
+                        <input type="text" id="address" required value={address} onChange={e => setAddress(e.target.value)} />
                         <label>Address</label> 
                     </div>
                      
                     <div className="form-element input-container">
-                        <input type="number" id="age" onChange={e => setAge(e.target.value)} />
+                        <input type="number" id="age" value={age} onChange={e => setAge(e.target.value)} />
                         <label>age</label> 
                     </div>
                      
-                    <select name="gender" id="gender" required onChange={e => setGender(e.target.value)} >
+                    <select name="gender" id="gender" required value={gender} onChange={e => setGender(e.target.value)} >
                         <option selected value="Gender">--Gender--</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>

@@ -15,6 +15,20 @@ const  StockHistory = (props) => {
         }
     }
 
+     // Search 
+     const searchQuery = async (e) => {
+        try {
+            const response = await fetch("http://localhost:8080/search-stock?term="+e.target.value);
+            const jsonData = await response.json();
+
+            if (jsonData.length === 0) return getStockHistory()
+            setAllStockHistory(jsonData); 
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(() => {   
         getStockHistory();
     },[]);
@@ -46,8 +60,9 @@ const  StockHistory = (props) => {
 
                 <div className="second-div" >
                     <div className="lab-record-searchbar searchbar input-container">
-                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" PID / Name / Mobile No"/>
-                        <p><i class="fa-solid fa-magnifying-glass"></i></p>
+                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" Material name"
+                        onChange={searchQuery}
+                        />
                     </div>
                     <div>
                         <button id="new-stockhistory-record" className="new-btn-appointment" onClick={handleClick}>+ Add New</button>
@@ -67,6 +82,7 @@ const  StockHistory = (props) => {
                             <th class="table-header" id="username">Bal Stock</th>
                             <th class="table-header" id="action">Expiry Date</th>
                             <th class="table-header" id="action">Left Days</th>
+                            <th class="table-header" id="action">Controls</th>
                         </tr>
                     </thead>
                     <tbody>

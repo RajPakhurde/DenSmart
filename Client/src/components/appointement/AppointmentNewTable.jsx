@@ -32,6 +32,7 @@ const AppointmentNewTable = () => {
                 body: JSON.stringify(body)
             }) 
            
+            getNewAppointment();
             alert("Status updated");
         } catch (error) {
             console.log(error.message);

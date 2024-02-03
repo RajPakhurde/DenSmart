@@ -61,13 +61,14 @@ const ConsultingFee = (props) => {
                         />
                         <label>Consultant Amount</label> 
                     </div>
-                    <div className="dates form-element">
-                        <label for="date">Date</label>
-                        <input type="date" id="date" required 
-                        onChange={e => setDate(e.target.value)}
-                        
+                    <div className="form-element input-container">
+                        <input type="text" id="pid" required 
+                        value={patientID}
+                        onChange={e => setPatientID(e.target.value)}
                         />
+                        <label>PID</label> 
                     </div>
+                    
                 </div>
                 <div className="second-row-lab-records ">
                     <select name="treatment-name" id="treatment-name" required
@@ -106,6 +107,14 @@ const ConsultingFee = (props) => {
                         <option value="online">Online</option>
                         <option value="Cash">Cash</option>
                     </select>
+
+                    <div className="dates form-element">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required 
+                        onChange={e => setDate(e.target.value)}
+                        
+                        />
+                    </div>
                     
                 </div>    
 

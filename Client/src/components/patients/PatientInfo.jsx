@@ -92,11 +92,12 @@ const PatientInfo = (props) => {
     
     return <div className='patient-selected'>
         <div className="form-header">
-                <div className="form-heading"><h1>Patient Details</h1></div>
+                <div className="form-heading"><h1>Patient Details</h1></div> 
                 <div className="close-btn" onClick={() =>{
                     props.setCurrentTable("patient-table");
                     }}  >&times;</div>
         </div>
+        <hr />
         <div>
             <div className='patient-info-selected'>
                 <div className='patient-basic-info'>

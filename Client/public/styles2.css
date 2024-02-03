@@ -285,6 +285,14 @@ input[type="date"], input[type="time"] {
   }
   .container {
     display: flex;
+    justify-content: space-between;
+  }
+
+  .patient-info-1 {
+    flex: 60%;
+  }
+  .patient-info-2 {
+    flex: 40%;
   }
 
   .patient-info-tables td {

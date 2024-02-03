@@ -7,7 +7,7 @@ const PatientsTable = (props) => {
     function handleClick(patientID) {
         // props.setCurrentTable(event.target.id);
         props.setPatientID(patientID)
-        console.log(patientID);
+        console.log("patient id is : " ,patientID);
     }
 
      // Get all patients data
@@ -17,6 +17,20 @@ const PatientsTable = (props) => {
             const jsonData = await response.json();
 
             setPatientsData(jsonData);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // Search 
+    const searchQuery = async (e) => {
+        try {
+            const response = await fetch("http://localhost:8080/search-patient?term="+e.target.value);
+            const jsonData = await response.json();
+
+            if (jsonData.length === 0) return getPatientsData()
+            setPatientsData(jsonData); 
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -32,11 +46,12 @@ const PatientsTable = (props) => {
         <div className="patient-info">
             <div className="searchbar">
                 <div className=" input-container">
-                    <input type="search" name="searchPatients" className="searchPatients" placeholder=" PID / Name / Mobile No"/>
-                    <p><i class="fa-solid fa-magnifying-glass"></i></p>
+                    <input type="search" name="searchPatients" className="searchPatients" placeholder=" PID / Name / Mobile No"
+                    onChange={searchQuery}
+                    />
                 </div>
                 <div>
-                    <button id="add-new-patient" className="new-btn-appointment" onClick={handleClick}>+ New</button>
+                    <button id="add-new-patient" className="new-btn-appointment" onClick={() => props.setCurrentTable("add-new-patient")}>+ New</button>
                 </div>
             </div>
 
@@ -82,11 +97,7 @@ const PatientsTable = (props) => {
                         </tr>
                     })}
                 </tbody>
-                <tr>
-                  
-                </tr>
             </table>
-
         </div>
     );
 };

@@ -27,6 +27,20 @@ const  ConsumeMaterial = (props) => {
         }
     }
 
+     // Search 
+     const searchQuery = async (e) => {
+        try {
+            const response = await fetch("http://localhost:8080/search-consume?term="+e.target.value);
+            const jsonData = await response.json();
+
+            if (jsonData.length === 0) return getAllConsumeMaterial()
+            setAllConsumeMaterial(jsonData); 
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(() => {
         getAllConsumeMaterial();
     }, []);
@@ -47,8 +61,9 @@ const  ConsumeMaterial = (props) => {
 
                 <div className="second-div" >
                     <div className="lab-record-searchbar searchbar input-container">
-                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" PID / Name / Mobile No"/>
-                        <p><i class="fa-solid fa-magnifying-glass"></i></p>
+                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder="Patient name / Material name"
+                        onChange={searchQuery}
+                        />
                     </div>
                     <div>
                         <button id="new-consumematerial-record" className="new-btn-appointment" onClick={handleClick}>+ Add New</button>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const  SalaryRecords = (props) => {
     const [allSalaryRecord, setAllSalaryRecord] = useState([]);
 
+    // GET ALL SALARY RECORDS
     const getAllSalaryRecords = async () => {
         try {
             const response = await fetch("http://localhost:8080/salary");
@@ -10,6 +11,20 @@ const  SalaryRecords = (props) => {
 
             setAllSalaryRecord(jsonDate);
 
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+     // Search 
+     const searchQuery = async (e) => {
+        try {
+            const response = await fetch("http://localhost:8080/search-salary?term="+e.target.value);
+            const jsonData = await response.json();
+
+            if (jsonData.length === 0) return getAllSalaryRecords()
+            setAllSalaryRecord(jsonData); 
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -46,8 +61,10 @@ const  SalaryRecords = (props) => {
 
                 <div className="second-div" >
                     <div className="lab-record-searchbar searchbar input-container">
-                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder=" PID / Name / Mobile No"/>
-                        <p><i class="fa-solid fa-magnifying-glass"></i></p>
+                        <input type="search" name="searchPatients" className="searchLabRecords" placeholder="Employer name "
+                        onChange={searchQuery}
+                        />
+                       
                     </div>
                     <div>
                         <button id="new-salary-record" className="new-btn-appointment" onClick={handleClick}>+ Add New</button>
@@ -62,7 +79,7 @@ const  SalaryRecords = (props) => {
                         <tr>
                             <th class="table-header" id="sno">SNo</th>
                             <th class="table-header" id="date">Date</th>
-                            <th class="table-header" id="employeename">Employee Name</th>
+                            <th class="table-header" id="employeename">Employer Name</th>
                             <th class="table-header" id="paidcharges">Paid Charges</th>
                             <th class="table-header" id="action">Action</th>
                         </tr>
