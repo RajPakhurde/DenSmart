@@ -23,7 +23,7 @@ const AppointmentNewTable = () => {
     // Update status
     const updateStatus = async (e, status) => { 
         try {
-            // console.log(e.target.id, status);
+            console.log(e.target.id, status);
             const body = {status};
             const id = e.target.id;
             const response = await fetch("http://localhost:8080/appointment/"+id, {
@@ -71,12 +71,12 @@ const AppointmentNewTable = () => {
                                     <td>{appointment.out_time}</td>
                                     <td>{appointment.status}</td>
                                     <td className='controls'>
-                                        <i class="fa-solid fa-xmark" id={appointment.patient_id}
+                                        <i class="fa-solid fa-xmark" id={appointment.appointment_id}
                                         onClick={(e) => {
                                              updateStatus(e, "cancel");
                                         }}
                                         ></i>
-                                        <i class="fa-solid fa-check" id={appointment.patient_id}
+                                        <i class="fa-solid fa-check" id={appointment.appointment_id}
                                         onClick={(e) => {
                                             updateStatus(e, "completed");
                                         }}

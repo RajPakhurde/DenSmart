@@ -268,7 +268,7 @@ app.put("/appointment/:id", async (req, res) => {
         const {id} = req.params;
         const {status} = req.body;
         const updateStatus = await pool.query(
-            "UPDATE appointment SET status = $1 WHERE patient_id = $2",
+            "UPDATE appointment SET status = $1 WHERE appointment_id = $2",
             [status, id]
         )
 
@@ -498,6 +498,176 @@ app.get("/search-consultingfee", async (req, res) => {
     }
 })
 
+// Dashboard data
+app.get("/dashboard", async (req, res) => {
+    try {
+        const regPatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients");
+        const malePatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE gender=$1",['male']);
+        const femalePatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE gender=$1",['female']);
+        const agePatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE age<=$1",[20]);
+        
+        const Today = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE DATE(reg_date) = CURRENT_DATE")
+        const ThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE EXTRACT(YEAR FROM reg_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM reg_date) = EXTRACT(MONTH FROM CURRENT_DATE)");
+        const LastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE EXTRACT(YEAR FROM reg_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM reg_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month')");
+        const ThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE EXTRACT(YEAR FROM reg_date) = EXTRACT(YEAR FROM CURRENT_DATE)");
+        const LastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE EXTRACT(YEAR FROM reg_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year')");
+       
+        const newAppToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE")
+        const newAppThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE)");
+        const newAppLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month')");
+        const newAppThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE)");
+        const newALastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year')");
+       
+        const tretmentToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND status='completed'")
+        const treatmentThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND status='completed'");
+        const treatmentLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND status='completed'");
+        const treatmentThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND status='completed'");
+        const treatmentLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND status='completed'");
+
+        const completeDentureToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Complete Denture'")
+        const completeDentureThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Complete Denture'");
+        const completeDentureLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Complete Denture'");
+        const completeDentureThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Complete Denture'");
+        const completeDentureLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Complete Denture'");
+       
+        const compositeRestorationToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Composite Restoration'")
+        const compositeRestorationThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Composite Restoration'");
+        const compositeRestorationLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Composite Restoration'");
+        const compositeRestorationThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Composite Restoration'");
+        const compositeRestorationLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Composite Restoration'");
+       
+        const consultationToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Consultation'")
+        const consultationThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Consultation'");
+        const consultationLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Consultation'");
+        const consultationThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Consultation'");
+        const consultationLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Consultation'");
+       
+        const crownToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Crown'")
+        const crownThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Crown'");
+        const crownLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Crown'");
+        const crownThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Crown'");
+        const crownLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Crown'");
+       
+        const extractionToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Extraction'")
+        const extractionThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Extraction'");
+        const extractionLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Extraction'");
+        const extractionThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Extraction'");
+        const extractionLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Extraction'");
+       
+        const fpdToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='FPD'")
+        const fpdThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='FPD'");
+        const fpdLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='FPD'");
+        const fpdThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='FPD'");
+        const fpdLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='FPD'");
+       
+        const implantToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Implant'")
+        const implantThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Implant'");
+        const implantLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Implant'");
+        const implantThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Implant'");
+        const implantLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Implant'");
+       
+        const orthodonticToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Orthodontic Treatment'")
+        const orthodonticThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Orthodontic Treatment'");
+        const orthodonticLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Orthodontic Treatment'");
+        const orthodonticThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Orthodontic Treatment'");
+        const orthodonticLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Orthodontic Treatment'");
+       
+        const rootToday = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE DATE(app_date) = CURRENT_DATE AND treatment='Root Canal Treatment'")
+        const rootThisMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE) AND treatment='Root Canal Treatment'");
+        const rootLastMonth = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 month') AND EXTRACT(MONTH FROM app_date) = EXTRACT(MONTH FROM CURRENT_DATE - INTERVAL '1 month') AND treatment='Root Canal Treatment'");
+        const rootThisYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE) AND treatment='Root Canal Treatment'");
+        const rootLastYear = await pool.query("SELECT COUNT(*) AS registration_count FROM appointment WHERE EXTRACT(YEAR FROM app_date) = EXTRACT(YEAR FROM CURRENT_DATE - INTERVAL '1 year') AND treatment='Root Canal Treatment'");
+
+        res.json({
+            regPatients: regPatients.rows[0].registration_count,
+            malePatients: malePatients.rows[0].registration_count,
+            femalePatients: femalePatients.rows[0].registration_count,
+            agePatients: agePatients.rows[0].registration_count,
+
+            Today0: Today.rows[0].registration_count,
+            ThisMonth0: ThisMonth.rows[0].registration_count,
+            LastMonth0: LastMonth.rows[0].registration_count,
+            ThisYear0: ThisYear.rows[0].registration_count,
+            LastYear0: LastYear.rows[0].registration_count,
+            
+            Today1: newAppToday.rows[0].registration_count,
+            ThisMonth1: newAppThisMonth.rows[0].registration_count,
+            LastMonth1: newAppLastMonth.rows[0].registration_count,
+            ThisYear1: newAppThisYear.rows[0].registration_count,
+            LastYear1: newALastYear.rows[0].registration_count,
+            
+            Today2: Today.rows[0].registration_count,
+            ThisMonth2: ThisMonth.rows[0].registration_count,
+            LastMonth2: LastMonth.rows[0].registration_count,
+            ThisYear2: ThisYear.rows[0].registration_count,
+            LastYear2: LastYear.rows[0].registration_count,
+
+            Today3: tretmentToday.rows[0].registration_count,
+            ThisMonth3: treatmentThisMonth.rows[0].registration_count,
+            LastMonth3: treatmentLastMonth.rows[0].registration_count,
+            ThisYear3: treatmentThisYear.rows[0].registration_count,
+            LastYear3: treatmentLastYear.rows[0].registration_count,
+
+            completeDentureToday: completeDentureToday.rows[0].registration_count,
+            completeDentureThisMonth: completeDentureThisMonth.rows[0].registration_count,
+            completeDentureLastMonth: completeDentureLastMonth.rows[0].registration_count,
+            completeDentureThisYear: completeDentureThisYear.rows[0].registration_count,
+            completeDentureLastYear: completeDentureLastYear.rows[0].registration_count,
+            
+            compositeRestorationToday: compositeRestorationToday.rows[0].registration_count,
+            compositeRestorationThisMonth: compositeRestorationThisMonth.rows[0].registration_count,
+            compositeRestorationLastMonth: compositeRestorationLastMonth.rows[0].registration_count,
+            compositeRestorationThisYear: compositeRestorationThisYear.rows[0].registration_count,
+            compositeRestorationLastYear: compositeRestorationLastYear.rows[0].registration_count,
+            
+            consultationToday: consultationToday.rows[0].registration_count,
+            consultationThisMonth: consultationThisMonth.rows[0].registration_count,
+            consultationLastMonth: consultationLastMonth.rows[0].registration_count,
+            consultationThisYear: consultationThisYear.rows[0].registration_count,
+            consultationLastYear: consultationLastYear.rows[0].registration_count,
+            
+            crownToday: crownToday.rows[0].registration_count,
+            crownThisMonth: crownThisMonth.rows[0].registration_count,
+            crownLastMonth: crownLastMonth.rows[0].registration_count,
+            crownThisYear: crownThisYear.rows[0].registration_count,
+            crownLastYear: crownLastYear.rows[0].registration_count,
+            
+            extractionToday: extractionToday.rows[0].registration_count,
+            extractionThisMonth: extractionThisMonth.rows[0].registration_count,
+            extractionLastMonth: extractionLastMonth.rows[0].registration_count,
+            extractionThisYear: extractionThisYear.rows[0].registration_count,
+            extractionLastYear: extractionLastYear.rows[0].registration_count,
+            
+            fpdToday: fpdToday.rows[0].registration_count,
+            fpdThisMonth: fpdThisMonth.rows[0].registration_count,
+            fpdLastMonth: fpdLastMonth.rows[0].registration_count,
+            fpdThisYear: fpdThisYear.rows[0].registration_count,
+            fpdLastYear: fpdLastYear.rows[0].registration_count,
+          
+            implantToday: implantToday.rows[0].registration_count,
+            implantThisMonth: implantThisMonth.rows[0].registration_count,
+            implantLastMonth: implantLastMonth.rows[0].registration_count,
+            implantThisYear: implantThisYear.rows[0].registration_count,
+            implantLastYear: implantLastYear.rows[0].registration_count,
+          
+            orthodonticToday: orthodonticToday.rows[0].registration_count,
+            orthodonticThisMonth: orthodonticThisMonth.rows[0].registration_count,
+            orthodonticLastMonth: orthodonticLastMonth.rows[0].registration_count,
+            orthodonticThisYear: orthodonticThisYear.rows[0].registration_count,
+            orthodonticLastYear: orthodonticLastYear.rows[0].registration_count,
+          
+            rootToday: rootToday.rows[0].registration_count,
+            rootThisMonth: rootThisMonth.rows[0].registration_count,
+            rootLastMonth: rootLastMonth.rows[0].registration_count,
+            rootThisYear: rootThisYear.rows[0].registration_count,
+            rootLastYear: rootLastYear.rows[0].registration_count,
+
+
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 
 app.listen(port, () => {

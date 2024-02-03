@@ -12,26 +12,25 @@ const DashboardSmallTable = (props) => {
                     <hr />
                     <tr>
                         <td>Today</td>
-                        <td className='table-second-ele'>0</td>
+                        <td className='table-second-ele'>{props.today}</td>
                     </tr>
                     <tr>
                         <td>This Month</td>
-                        <td className='table-second-ele'>0</td>
+                        <td className='table-second-ele'>{props.thisMonth}</td>
                     </tr>
                     <tr>
                         <td>Last Month</td>
-                        <td className='table-second-ele'>0</td>
+                        <td className='table-second-ele'>{props.lastMonth}</td>
                     </tr>
                     <tr>
                         <td>This Year</td>
-                        <td className='table-second-ele'>0</td>
+                        <td className='table-second-ele'>{props.thisYear}</td>
                     </tr>
                     <tr>
                         <td>Last Year</td>
-                        <td className='table-second-ele'>0</td>
+                        <td className='table-second-ele'>{props.lastYear}</td>
                     </tr>
                 </table>
-                {console.log(props.icon)}
             </div>
     );
 };
