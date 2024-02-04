@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pg from 'pg';
 import { uid } from 'uid';
+import { customAlphabet } from 'nanoid';
 
 const app = express();
 const port = 8080;
@@ -20,16 +21,21 @@ const pool = new pg.Client({
 
 pool.connect();
 
+
+
 // Routes
 
 // Insert data into Patients Table
 app.post("/patients", async(req, res) => {
     try {
-        const newUid = uid();
+        // const numericChar = '123456789';
+        // const generateNumId = customAlphabet(numericChar, 5);
+        // const newUid = generateNumId();
+        
         const {patientName,regDate, gender,age, address, mobile, email} = req.body;
         const newPatient = await pool.query(
-            "INSERT INTO patients (patient_name, pid, reg_date, gender, age, address, mobile, email) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-            [patientName, newUid, regDate, gender,age, address, mobile, email]
+            "INSERT INTO patients (patient_name, reg_date, gender, age, address, mobile, email) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+            [patientName, regDate, gender,age, address, mobile, email]
         );
 
         const updateTable = await pool.query(
@@ -500,6 +506,7 @@ app.get("/search-consultingfee", async (req, res) => {
 
 // Dashboard data
 app.get("/dashboard", async (req, res) => {
+   
     try {
         const regPatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients");
         const malePatients = await pool.query("SELECT COUNT(*) AS registration_count FROM patients WHERE gender=$1",['male']);
