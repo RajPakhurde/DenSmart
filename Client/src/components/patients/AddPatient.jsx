@@ -34,18 +34,27 @@ const AddPatient = (props) => {
         }
     }
 
+    const handleClick = () => {
+        if (props.setCurrentTable !== undefined) props.setCurrentTable("patient-table");
+
+        if (props.setCurrentCompnent !== undefined) props.setCurrentCompnent("1");
+         
+    }
    
+    const popupStyle = {
+        width: "calc(100% - 340px)",
+        position: "absolute",
+        right: "0%"
+    }
 
     return (
-        <div class="popup-record sub-tables">
+        <div class="popup-record sub-tables" style={props.setCurrentCompnent !== undefined ? popupStyle : null }>
             <div className="lab-record-form">
 
             
             <div className="form-header">
                 <div className="form-heading">Add New Patient</div>
-                <div className="close-btn" onClick={() =>{
-                    props.setCurrentTable("patient-table");
-                    }}  >&times;</div>
+                <div className="close-btn" onClick={handleClick}  >&times;</div>
             </div>
             <hr />
 

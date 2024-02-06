@@ -39,9 +39,10 @@ const LabRecords = (props) => {
             
             <div className="form-header">
                 <div className="form-heading">Save Lab Records</div>
-                <div className="close-btn" onClick={() =>{
+                {props.openInRecords !== undefined ?  <div className="close-btn" onClick={() =>{props.setCurrentTable("labrecords"); }}  >&times;</div> : null}
+                {/* <div className="close-btn" onClick={() =>{
                     props.setCurrentTable("labrecords");
-                    }}  >&times;</div>
+                    }}  >&times;</div> */}
             </div>
             <hr />
 

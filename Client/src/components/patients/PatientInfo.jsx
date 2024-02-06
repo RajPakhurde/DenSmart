@@ -98,6 +98,16 @@ const PatientInfo = (props) => {
                     }}  >&times;</div>
         </div>
         <hr />
+        <div className='btn-patient-info'>
+                    <button 
+                    id='book_Appointment' 
+                    onClick={handleClick}>
+                    Book Appoiment
+                    </button>
+                    <button id='labrecords' onClick={handleClick}  >Add Lab Records</button>
+                    <button id='consumematerial' onClick={handleClick}  >Add Consume Material Record</button>
+                    <button id='consultingfee' onClick={handleClick}  >Add Consulting Fees</button>
+                </div>
         <div>
             <div className='patient-info-selected'>
                 <div className='patient-basic-info'>
@@ -110,16 +120,7 @@ const PatientInfo = (props) => {
                     <h5>Age:- <span>{patientInfo.age}</span></h5>
                     <h5>Gender:- <span>{patientInfo.gender}</span></h5>
                 </div>
-                <div className='btn-patient-info'>
-                    <button 
-                    id='book_Appointment' 
-                    onClick={handleClick}>
-                    Book Appoiment
-                    </button>
-                    <button id='labrecords' onClick={handleClick}  >Add Lab Records</button>
-                    <button id='consumematerial' onClick={handleClick}  >Add Consume Material Record</button>
-                    <button id='consultingfee' onClick={handleClick}  >Add Consulting Fees</button>
-                </div>
+                
             </div>
             <div className='container'>
             <div className='patient-info-tables patient-info-1'>

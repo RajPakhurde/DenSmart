@@ -7,6 +7,7 @@ import Patients from './Patients';
 import Planner from './Planner';
 import Records from './Records';
 import Accounts from './Accounts'
+import AddPatient from './patients/AddPatient'
 
 
 const App = () => {
@@ -24,7 +25,8 @@ const App = () => {
         <i class="ri-user-3-fill"></i>,
         <i class="ri-time-fill"></i>,
         <i class="ri-file-history-fill"></i>,
-        <i class="ri-money-rupee-circle-fill"></i>
+        <i class="ri-money-rupee-circle-fill"></i>,
+        <i class="ri-user-add-fill" ></i>
         ];
 
     function setCurrentCompnent (id) {
@@ -59,6 +61,12 @@ const App = () => {
                 setCurrentPage("Accounts");
                 setIconHeader(icons[5]);
                 break;               
+            case "7": 
+                setCurrentComp("patient-info");
+                setCurrentPage("Reg Patient");
+                setIconHeader(icons[6]);
+                console.log("called");
+                break;               
             default:
                 console.log("error");
                 break;
@@ -69,14 +77,16 @@ const App = () => {
         <div>
             
             <Nav setCurrentCompnent={setCurrentCompnent} subHeader={setHeader} />
-            <Header page={currentPage} icon={iconHeader} subHeader={header}/>
+            <Header page={currentPage} icon={iconHeader} subHeader={header} setCurrentCompnent={setCurrentCompnent}/>
             {currentComp === "dashboard" && <Dashboard /> }
             {currentComp === "appointment" && <Appointment setHeader={setHeader} /> }
             {currentComp === "patients" && <Patients /> }
             {currentComp === "planner" && <Planner /> }
             {currentComp === "records" && <Records setHeader={setHeader} /> }
             {currentComp === "accounts" && <Accounts /> }
-            {console.log(header)} 
+            {currentComp === "patient-info" && <AddPatient setCurrentCompnent={setCurrentCompnent} /> }
+            
+            
            
         </div>
     );

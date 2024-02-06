@@ -34,9 +34,10 @@ const ConsultingFee = (props) => {
             
             <div className="form-header">
                 <div className="form-heading">Save Consulting Fees Records</div>
-                <div className="close-btn" onClick={() =>{
+                {props.openInRecords !== undefined ? <div className="close-btn" onClick={() =>{
                     props.setCurrentTable("consultingfee");
-                    }}  >&times;</div>
+                    }}  >&times;</div> : null }
+                
             </div>
             <hr />
 

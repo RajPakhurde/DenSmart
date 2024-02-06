@@ -34,13 +34,13 @@ const Records = (props) => {
               {currentTable === "stockhistory" && <StockHistory setCurrentTable={setCurrentTable} />}
               {currentTable === "consultingfee" && <ConsultingFee setCurrentTable={setCurrentTable} />}
 
-              {currentTable === "new-lab-record" && <LabRecordsForm setCurrentTable={setCurrentTable}/>}
+              {currentTable === "new-lab-record" && <LabRecordsForm setCurrentTable={setCurrentTable} openInRecords="true" />}
               {currentTable === "new-material-record" && <MaterialRecordsForm setCurrentTable={setCurrentTable}/>}
               {currentTable === "new-mantenance-record" && <MaintenanceRecordsForm setCurrentTable={setCurrentTable}/>}
               {currentTable === "new-salary-record" && <SalaryRecordsForm setCurrentTable={setCurrentTable}/>}
-              {currentTable === "new-consumematerial-record" && <ConsumeMaterailForm setCurrentTable={setCurrentTable}/>}
+              {currentTable === "new-consumematerial-record" && <ConsumeMaterailForm setCurrentTable={setCurrentTable} openInRecords="true"/>}
               {currentTable === "new-stockhistory-record" && <StockHistoryForm setCurrentTable={setCurrentTable}/>}
-              {currentTable === "new-consultingfee-record" && <ConsultingFeeForm setCurrentTable={setCurrentTable}/>}
+              {currentTable === "new-consultingfee-record" && <ConsultingFeeForm setCurrentTable={setCurrentTable} openInRecords="true"/>}
         </div>
     );
 };

@@ -77,7 +77,7 @@ const PatientsTable = (props) => {
                                 <td>{sNo++}</td>
                                 <td
                                 id="patient-info"
-                               
+                                className="patient-name"
                                 onClick={(event) => {
                                     props.setCurrentTable(event.target.id);
                                     handleClick(patient.pid);

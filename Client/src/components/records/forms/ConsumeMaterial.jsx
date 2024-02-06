@@ -31,9 +31,10 @@ const ConsumeMaterial = (props) => {
             
             <div className="form-header">
                 <div className="form-heading">Save Consume Material Records</div>
-                <div className="close-btn" onClick={() =>{
+                {props.openInRecords !== undefined ? <div className="close-btn" onClick={() =>{
                     props.setCurrentTable("consumematerial");
-                    }}  >&times;</div>
+                    }}  >&times;</div> : null }
+                
             </div>
             <hr />
 

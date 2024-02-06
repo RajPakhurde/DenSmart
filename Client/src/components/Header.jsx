@@ -2,6 +2,9 @@ import React from 'react';
 import Slide from '@mui/material/Slide';
 
 const Header = (props) => {
+    const handleClick = () => {
+        props.setCurrentCompnent("7");
+    }
     
 
     return (
@@ -12,8 +15,9 @@ const Header = (props) => {
                     <h3>{props.page}</h3>
                 </div>
                 <div className='header-right'>
-                    <i class="ri-user-add-fill"></i>
-                    <i class="ri-notification-3-fill"></i>
+                    <i class="ri-user-add-fill"
+                    onClick={handleClick}
+                    ></i>
                     <div className='img-div'>
                         <div className='profile-img'>
                             <i class="fa-solid fa-user-doctor "></i>

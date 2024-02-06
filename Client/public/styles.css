@@ -141,6 +141,8 @@ hr {
     margin-right: 30px;
 }
 
+ 
+
 .dashboard-div-1, .dashboard-div-2 {
     width: 100%;
     display: flex;
@@ -579,3 +581,4 @@ select {
 .reset-btn {
     background-image: linear-gradient(#e76262, #da1414);
 }
+
