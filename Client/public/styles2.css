@@ -354,3 +354,27 @@ font-weight: bold;
     border-radius: 8px;
     margin-top: 20px;
 }
+
+.app-delete-btn i, .patient-delete-btn i{
+    height: 30px;
+    width: 30px;
+    color: rgb(181, 5, 5);
+    padding: 13px;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.app-delete-btn, .patient-delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.patient-delete-btn i:first-child {
+    color: #0044ff;
+}

@@ -42,6 +42,18 @@ const PatientsTable = (props) => {
 
     let sNo = 1;
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deletePatient = await fetch("http://localhost:8080/patients/"+id, {
+                method: "DELETE"
+            });
+
+            getPatientsData();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     return (
         <div className="patient-info">
             <div className="searchbar">
@@ -90,9 +102,14 @@ const PatientsTable = (props) => {
                                 <td>{patient.address}</td>
                                 <td>{patient.mobile}</td>
                                 <td>{patient.email}</td>
-                                <td>
+                                <td className='patient-delete-btn'>
                                 <i class="fa-solid fa-pencil"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash"
+                                onClick={() => {
+                                    if(!window.confirm("Are you sure?")) return
+                                    handleBtnClick(patient.pid);
+                                }}
+                                ></i>
                                 </td>
                         </tr>
                     })}

@@ -33,6 +33,18 @@ const  StockHistory = (props) => {
         getStockHistory();
     },[]);
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deletestock = await fetch("http://localhost:8080/stock/"+id, {
+                method: "DELETE"
+            });
+
+            getStockHistory();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -95,10 +107,16 @@ const  StockHistory = (props) => {
                                         <td>{stock.bal_stock}</td>
                                         <td>{stock.expiry_date.split('T')[0]}</td>
                                         <td>1</td>
-                                        <td>
-                                        <i class="fa-solid fa-pencil"></i>
-                                        <i class="fa-solid fa-trash"></i>
-                                        </td>
+                                        <td className='patient-delete-btn'>
+                                            <i class="fa-solid fa-pencil"></i>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(stock.stock_history_id);
+                                            }
+                                            }
+                                            ></i>
+                                        </td>  
                                     </tr>
                         })}
                     </tbody>

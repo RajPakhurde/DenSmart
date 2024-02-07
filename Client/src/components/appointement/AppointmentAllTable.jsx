@@ -3,6 +3,7 @@ import { Zoom } from '@mui/material';
 
 const AppointmentAllTable = () => {
     const [allAppointment, setAllAppointment] = useState([]);
+    let sNo = 1;
 
      // Get all Appointment Records
      const getAllAppointment = async () => {
@@ -20,7 +21,18 @@ const AppointmentAllTable = () => {
         getAllAppointment();
     }, []);
 
-    let sNo = 1;
+  
+    const handleClick = async (id) => {
+        try {
+            const deleteapp = await fetch("http://localhost:8080/appointment/"+id, {
+                method: "DELETE"
+            });
+
+            getAllAppointment();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
 
     return (
         <Zoom in={true} >
@@ -36,7 +48,7 @@ const AppointmentAllTable = () => {
                         <th class="table-header" id="intime">In Time</th>
                         <th class="table-header" id="outtime">Out Time</th>
                         <th class="table-header" id="status">Status</th>
-                        {/* <th class="table-header" id="controls">Controls</th> */}
+                        <th class="table-header" id="controls">Controls</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,10 +62,16 @@ const AppointmentAllTable = () => {
                                     <td>{appointment.in_time}</td>
                                     <td>{appointment.out_time}</td>
                                     <td>{appointment.status}</td>
-                                    {/* <td>
-                                        <i class="fa-solid fa-pencil"></i>
+                                    <td className='app-delete-btn'
+                                    onClick={() =>{
+                                        if(!window.confirm("Are you sure?")) return
+                                        handleClick(appointment.appointment_id)
+                                    }
+                                    }
+                                    >
+                                        {/* <i class="fa-solid fa-pencil"></i> */}
                                         <i class="fa-solid fa-trash"></i>
-                                    </td>  */}
+                                    </td> 
                                 </tr>
                     })}
                 </tbody>

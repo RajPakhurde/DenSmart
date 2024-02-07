@@ -46,6 +46,18 @@ const  MaterialRecords = (props) => {
         getAllMaterialData();
     }, []);
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deleteMaterial = await fetch("http://localhost:8080/material-record/"+id, {
+                method: "DELETE"
+            });
+
+            getAllMaterialData();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -85,7 +97,7 @@ const  MaterialRecords = (props) => {
                             <th class="table-header" id="chargesperdoses">Charges Per Doses</th>
                             <th class="table-header" id="totalcharges">Total Charges</th>
                             <th class="table-header" id="expirydate">ExpiryDate</th> 
-                            <th class="table-header" id="action">Action</th>
+                            <th class="table-header" id="action">Controls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,8 +111,15 @@ const  MaterialRecords = (props) => {
                                         <td>{materialRecord.charges_per_quantity}</td>
                                         <td>{materialRecord.total_charges}</td>
                                         <td>{materialRecord.expiry_date.split('T')[0]}</td>
-                                        <td>
-                                            <i class="fa-solid fa-pencil"></i> <i class="fa-solid fa-trash"></i>
+                                        <td className='patient-delete-btn'>
+                                            <i class="fa-solid fa-pencil"></i>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(materialRecord.material_record_id);
+                                            }
+                                            }
+                                            ></i>
                                         </td>
                                     </tr>
                         })}

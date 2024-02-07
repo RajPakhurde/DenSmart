@@ -74,6 +74,22 @@ app.get("/patients/:id", async (req, res) => {
     }
 })
 
+// DELETE DATA FROM APPOINTMENT TABLE   
+app.delete("/patients/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deletePatient = await pool.query("DELETE FROM patients WHERE pid = $1", [id]);
+        const deleteAppointment = await pool.query("DELETE FROM appointment WHERE patient_id = $1", [id]);
+        const deleteLabRecord = await pool.query("DELETE FROM lab_record WHERE patient_id = $1", [id]);
+        const deleteConsumeMaterial = await pool.query("DELETE FROM consume_material_record WHERE patient_id = $1", [id]);
+        const deleteConsultingFee = await pool.query("DELETE FROM consulting_fee WHERE patient_id = $1", [id]);
+ 
+        res.json("Patient deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 // Insert data into material reacord table
 
 app.post("/material-record", async (req, res) => {
@@ -102,8 +118,19 @@ app.get("/material-record", async (req, res) => {
     }
 })
 
+// DELETE DATA FROM Material TABLE   
+app.delete("/material-record/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteMaterial = await pool.query("DELETE FROM material_record WHERE material_record_id = $1", [id]);
+
+        res.json("Material Record deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 // INSERT DATA INTO MAINTENANCE RECORD TABLE
- 
 app.post("/maintenance-record", async(req, res) => {
     try {
         const {chargesPaid, date, maintenanceWork} = req.body;
@@ -126,6 +153,18 @@ app.get("/maintenance-record", async (req, res) => {
         const response = await pool.query("SELECT * FROM maintenance_record");
 
         res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// DELETE DATA FROM Maintenance TABLE   
+app.delete("/maintenance-record/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteMaintenance = await pool.query("DELETE FROM maintenance_record WHERE maintenance_record_id = $1", [id]);
+
+        res.json("Maintenance Record deleted!");
     } catch (error) {
         console.log(error.message);
     }
@@ -159,6 +198,18 @@ app.get("/salary", async (req, res) => {
     }
 })
 
+// DELETE DATA FROM SALARY TABLE   
+app.delete("/salary/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteSalary = await pool.query("DELETE FROM salary_record WHERE salary_record_id = $1", [id]);
+
+        res.json("Salary Record deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 // INSERT DATA INTO STOCK HISTORY RECORD TABLE
 app.post("/stock", async (req, res) => {
     try {
@@ -182,6 +233,18 @@ app.get("/stock", async (req, res) => {
         const response = await pool.query("SELECT * FROM stock_history_record");
 
         res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// DELETE DATA FROM Stock TABLE   
+app.delete("/stock/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteStock = await pool.query("DELETE FROM stock_history_record WHERE stock_history_id = $1", [id]);
+
+        res.json("Stock Record deleted!");
     } catch (error) {
         console.log(error.message);
     }
@@ -284,6 +347,18 @@ app.put("/appointment/:id", async (req, res) => {
     }
 })
 
+// DELETE DATA FROM APPOINTMENT TABLE   
+app.delete("/appointment/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteAppointment = await pool.query("DELETE FROM appointment WHERE appointment_id = $1", [id]);
+        console.log(id, "deleted");
+        res.json("Appointment deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 
  
 // INSERT DATA INTO LAB RECORD TABLE
@@ -322,6 +397,18 @@ app.get("/lab/:id", async (req, res) => {
         const response = await pool.query("SELECT * FROM lab_record WHERE patient_id = $1",[id]);
 
         res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// DELETE DATA FROM APPOINTMENT TABLE   
+app.delete("/lab/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteLab = await pool.query("DELETE FROM lab_record WHERE lab_record_id = $1", [id]);
+
+        res.json("Appointment deleted!");
     } catch (error) {
         console.log(error.message);
     }
@@ -367,6 +454,18 @@ app.get("/consumematerial/:id", async (req, res) => {
     }
 })
 
+// DELETE DATA FROM Consume material TABLE   
+app.delete("/consumematerial/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteStock = await pool.query("DELETE FROM consume_material_record WHERE consume_material_id = $1", [id]);
+
+        res.json("Consume Material Record deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
 
 // INSERT INTO CONSULTING FEE TABLE
 app.post("/consultingfee", async (req, res) => {
@@ -403,6 +502,18 @@ app.get("/consultingfee/:id", async (req, res) => {
         const response = await pool.query("SELECT * FROM consulting_fee WHERE patient_id = $1",[id]);
 
         res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// DELETE DATA FROM Consultingfee TABLE   
+app.delete("/consultingfee/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deleteConsultingfee = await pool.query("DELETE FROM consulting_fee WHERE consulting_fee_id = $1", [id]);
+
+        res.json("Consulting Fee Record deleted!");
     } catch (error) {
         console.log(error.message);
     }

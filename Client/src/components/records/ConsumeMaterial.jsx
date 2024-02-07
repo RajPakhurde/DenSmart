@@ -45,6 +45,19 @@ const  ConsumeMaterial = (props) => {
         getAllConsumeMaterial();
     }, []);
  
+    const handleBtnClick = async (id) => {
+        try {
+            const deleteconsume = await fetch("http://localhost:8080/consumematerial/"+id, {
+                method: "DELETE"
+            });
+
+            getAllConsumeMaterial();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
+    let sNo = 1;
 
     return (
         <div className="sub-tables">
@@ -87,15 +100,21 @@ const  ConsumeMaterial = (props) => {
                     <tbody>
                         {allConsumeMaterial.map((consumeMaterial) => {
                             return  <tr>
-                                        <td>{consumeMaterial.consume_material_id}</td>
+                                        <td>{sNo++}</td>
                                         <td>{consumeMaterial.date.split('T')[0]}</td>
                                         <td>{consumeMaterial.material_name}</td>
                                         <td>{consumeMaterial.doses}</td>
                                         <td>{consumeMaterial.user_name}</td>
-                                        <td>
+                                        <td className='patient-delete-btn'>
                                             <i class="fa-solid fa-pencil"></i>
-                                            <i class="fa-solid fa-trash"></i>
-                                        </td>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(consumeMaterial.consume_material_id);
+                                            }
+                                            }
+                                            ></i>
+                                        </td>  
                                     </tr>
                         })}
                     </tbody>

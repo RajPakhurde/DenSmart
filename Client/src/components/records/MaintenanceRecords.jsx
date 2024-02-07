@@ -45,6 +45,18 @@ const MaintenanceRecords = (props) => {
     useEffect(() => {
         getAllMaintenanceRecords();
     }, []);
+
+    const handleBtnClick = async (id) => {
+        try {
+            const deleteMaintenance = await fetch("http://localhost:8080/maintenance-record/"+id, {
+                method: "DELETE"
+            });
+
+            getAllMaintenanceRecords();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
  
     return (
         <div className="sub-tables">
@@ -91,10 +103,16 @@ const MaintenanceRecords = (props) => {
                                         <td>{maintenanceRecord.date.split('T')[0]}</td>
                                         <td>{maintenanceRecord.maintenance_work}</td>
                                         <td>{maintenanceRecord.charges_paid}</td>
-                                        <td>
+                                        <td className='patient-delete-btn'>
                                             <i class="fa-solid fa-pencil"></i>
-                                            <i class="fa-solid fa-trash"></i>
-                                        </td>   
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(maintenanceRecord.maintenance_record_id);
+                                            }
+                                            }
+                                            ></i>
+                                        </td>  
                                     </tr>
                         })}
                     </tbody>

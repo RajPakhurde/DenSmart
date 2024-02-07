@@ -45,6 +45,18 @@ const CunsultingFee = (props) => {
         getAllConsultingFee();
     }, []);
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deleteconsultingfee = await fetch("http://localhost:8080/consultingfee/"+id, {
+                method: "DELETE"
+            });
+
+            getAllConsultingFee();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     let sNo = 1;
     return (
         <div className="sub-tables">
@@ -84,6 +96,7 @@ const CunsultingFee = (props) => {
                             <th class="table-header" id="labname">Mode of Payment</th>
                             <th class="table-header" id="impressiondate">Credited Amount</th>
                             <th class="table-header" id="senddate">Consultatnt Amount</th>
+                            <th class="table-header" id="senddate">Controls</th>
                             
                         </tr>
                     </thead>
@@ -98,6 +111,16 @@ const CunsultingFee = (props) => {
                                         <td>{consultingfee.mode_of_payment}</td>
                                         <td>{consultingfee.creadited_amount}</td>
                                         <td>{consultingfee.consultant_amount}</td>
+                                        <td className='patient-delete-btn'>
+                                            <i class="fa-solid fa-pencil"></i>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(consultingfee.consulting_fee_id);
+                                            }
+                                            }
+                                            ></i>
+                                        </td>  
                                     </tr>
                         })}
                     </tbody>

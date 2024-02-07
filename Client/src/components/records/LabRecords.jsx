@@ -47,6 +47,18 @@ const  LabRecords = (props) => {
 
     let sNo = 1;
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deletelab = await fetch("http://localhost:8080/lab/"+id, {
+                method: "DELETE"
+            });
+
+            getAllLabRecords();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     return (
         <div className="sub-tables">
             <div className="upper-div">
@@ -87,7 +99,7 @@ const  LabRecords = (props) => {
                             <th class="table-header" id="receiveddate">RecivedDate</th>
                             <th class="table-header" id="insertiondate">InsertionDate</th>
                             <th class="table-header" id="labcharges">Lab Charges</th>
-                            <th class="table-header" id="action">Action</th>
+                            <th class="table-header" id="action">Controls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,9 +115,15 @@ const  LabRecords = (props) => {
                                         <td>{labRecord.recive_date.split('T')[0]}</td>
                                         <td>{labRecord.insertion_date.split('T')[0]}</td>
                                         <td>{labRecord.lab_charges}</td>
-                                        <td>
+                                        <td className='patient-delete-btn'>
                                             <i class="fa-solid fa-pencil"></i>
-                                            <i class="fa-solid fa-trash"></i>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(labRecord.lab_record_id);
+                                            }
+                                            }
+                                            ></i>
                                         </td>  
                                     </tr>
                         })}

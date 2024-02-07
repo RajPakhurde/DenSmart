@@ -11,7 +11,9 @@ const AppointmentNav = (props) => {
 
     const navItembg = {
         color: "#404048",
-        backgroundColor: "#b8b9bc"
+        borderRadius: "0px",
+        border: "none",
+        borderBottom: "5px solid #0099ff"
     }
 
     return (

@@ -34,6 +34,18 @@ const  SalaryRecords = (props) => {
         getAllSalaryRecords();
     }, []);
 
+    const handleBtnClick = async (id) => {
+        try {
+            const deletelab = await fetch("http://localhost:8080/salary/"+id, {
+                method: "DELETE"
+            });
+
+            getAllSalaryRecords();
+        } catch (error) {
+            console.log(error.message);
+        } 
+    }
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -91,10 +103,16 @@ const  SalaryRecords = (props) => {
                                         <td>{salaryRecord.date}</td>
                                         <td>{salaryRecord.employee_name}</td>
                                         <td>{salaryRecord.salary_paid}</td>
-                                        <td>
-                                        <i class="fa-solid fa-pencil"></i>
-                                        <i class="fa-solid fa-trash"></i>
-                                        </td>
+                                        <td className='patient-delete-btn'>
+                                            <i class="fa-solid fa-pencil"></i>
+                                            <i class="fa-solid fa-trash"
+                                             onClick={() =>{
+                                                if(!window.confirm("Are you sure?")) return
+                                                handleBtnClick(salaryRecord.salary_record_id);
+                                            }
+                                            }
+                                            ></i>
+                                        </td>  
                                     </tr>
                         })}
                     </tbody>  
