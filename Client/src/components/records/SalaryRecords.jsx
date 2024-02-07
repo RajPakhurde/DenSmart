@@ -98,9 +98,11 @@ const  SalaryRecords = (props) => {
                     </thead>
                     <tbody>
                         {allSalaryRecord.map((salaryRecord) => {
+                            const formattedDate = new Date(salaryRecord.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return <tr>
                                         <td>{salaryRecord.salary_record_id}</td>
-                                        <td>{salaryRecord.date}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>{salaryRecord.employee_name}</td>
                                         <td>{salaryRecord.salary_paid}</td>
                                         <td className='patient-delete-btn'>

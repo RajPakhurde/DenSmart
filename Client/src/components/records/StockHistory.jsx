@@ -99,13 +99,15 @@ const  StockHistory = (props) => {
                     </thead>
                     <tbody>
                         {allStockHistory.map((stock) => {
+                            const formattedDate = new Date(stock.expiry_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return  <tr>
                                         <td>{stock.stock_history_id}</td>
                                         <td>{stock.material_name}</td>
                                         <td>{stock.total_stock}</td>
                                         <td>{stock.used_stock}</td>
                                         <td>{stock.bal_stock}</td>
-                                        <td>{stock.expiry_date.split('T')[0]}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>1</td>
                                         <td className='patient-delete-btn'>
                                             <i class="fa-solid fa-pencil"></i>

@@ -102,9 +102,11 @@ const CunsultingFee = (props) => {
                     </thead>
                     <tbody>
                         {allConsultantingFee.map((consultingfee) => {
+                            const formattedDate = new Date(consultingfee.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return <tr>
                                         <td>{sNo++}</td>
-                                        <td>{consultingfee.date.split('T')[0]}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>{consultingfee.patient_name}</td>
                                         <td>{consultingfee.treatment}</td>
                                         <td>{consultingfee.doctor_name}</td>

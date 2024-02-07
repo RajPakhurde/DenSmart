@@ -102,9 +102,11 @@ const  MaterialRecords = (props) => {
                     </thead>
                     <tbody>
                         {allMaterialRecords.map((materialRecord) => {
+                            const formattedDate = new Date(materialRecord.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return <tr>
                                         <td>{materialRecord.material_record_id}</td>
-                                        <td>{materialRecord.date.split('T')[0]}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>{materialRecord.material_name}</td>
                                         <td>{materialRecord.dealer}</td>
                                         <td>{materialRecord.quantity}</td>

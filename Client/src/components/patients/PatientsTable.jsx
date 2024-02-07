@@ -85,6 +85,9 @@ const PatientsTable = (props) => {
                 </thead>
                 <tbody>
                     {patientsData.map((patient) => {
+                        // Assuming dateData is the fetched date string
+                        const formattedDate = new Date(patient.reg_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                         return <tr>
                                 <td>{sNo++}</td>
                                 <td
@@ -96,7 +99,7 @@ const PatientsTable = (props) => {
                                 }}
                                 >{patient.patient_name}</td>
                                 <td>{patient.pid}</td>
-                                <td>{patient.reg_date.split('T')[0]}</td>
+                                <td>{formattedDate.split(',')[0]}</td>
                                 <td>{patient.gender}</td>
                                 <td>{patient.age}</td>
                                 <td>{patient.address}</td>

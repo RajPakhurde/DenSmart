@@ -99,9 +99,11 @@ const  ConsumeMaterial = (props) => {
                     </thead>
                     <tbody>
                         {allConsumeMaterial.map((consumeMaterial) => {
+                            const formattedDate = new Date(consumeMaterial.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return  <tr>
                                         <td>{sNo++}</td>
-                                        <td>{consumeMaterial.date.split('T')[0]}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>{consumeMaterial.material_name}</td>
                                         <td>{consumeMaterial.doses}</td>
                                         <td>{consumeMaterial.user_name}</td>

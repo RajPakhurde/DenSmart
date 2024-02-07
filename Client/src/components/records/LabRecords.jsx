@@ -104,16 +104,21 @@ const  LabRecords = (props) => {
                     </thead>
                     <tbody>
                         {allLabRecords.map((labRecord) => {
+                            const formattedDate1 = new Date(labRecord.impression_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+                            const formattedDate2 = new Date(labRecord.send_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+                            const formattedDate3 = new Date(labRecord.recive_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+                            const formattedDate4 = new Date(labRecord.insertion_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return <tr>
                                         <td>{sNo++}</td>
                                         <td>{labRecord.patient_name}</td>
                                         <td>{labRecord.mobile}</td>
                                         <td>{labRecord.lab_work}</td>
                                         <td>{labRecord.lab_name}</td>
-                                        <td>{labRecord.impression_date.split('T')[0]}</td>
-                                        <td>{labRecord.send_date.split('T')[0]}</td>
-                                        <td>{labRecord.recive_date.split('T')[0]}</td>
-                                        <td>{labRecord.insertion_date.split('T')[0]}</td>
+                                        <td>{formattedDate1.split(',')[0]}</td>
+                                        <td>{formattedDate2.split(',')[0]}</td>
+                                        <td>{formattedDate3.split(',')[0]}</td>
+                                        <td>{formattedDate4.split(',')[0]}</td>
                                         <td>{labRecord.lab_charges}</td>
                                         <td className='patient-delete-btn'>
                                             <i class="fa-solid fa-pencil"></i>

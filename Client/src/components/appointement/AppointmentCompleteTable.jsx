@@ -41,10 +41,12 @@ const AppointmentCompleteTable = () => {
                 </thead>
                 <tbody>
                     {completedAppointment.map((appointment) => {
+                        const formattedDate = new Date(appointment.app_date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                         return <tr>
                                     <td>{sNo++}</td>
                                     <td>{appointment.patient_name}</td>
-                                    <td>{appointment.app_date.split('T')[0]}</td>
+                                    <td>{formattedDate.split(',')[0]}</td>
                                     <td>{appointment.treatment}</td>
                                     <td>{appointment.doctor_name}</td>
                                     <td>{appointment.in_time}</td>

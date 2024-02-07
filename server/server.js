@@ -54,6 +54,7 @@ app.get("/patients", async (req, res) => {
     try {
         const response = await pool.query(
             "SELECT * FROM patients"
+            // "SELECT id,patient_name,gender,age,address,mobile,email,pid, reg_date AT TIME ZONE 'Asia/kolkata' FROM patients"
             );
         res.json(response.rows);
     } catch (error) {

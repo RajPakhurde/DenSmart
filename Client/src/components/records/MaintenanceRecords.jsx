@@ -97,10 +97,11 @@ const MaintenanceRecords = (props) => {
                     </thead>
                     <tbody>
                         {allMaintenanceReocord.map((maintenanceRecord) => {
+                            const formattedDate = new Date(maintenanceRecord.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
                             return <tr key={maintenanceRecord.maintenance_record_id}>
-                                {console.log(typeof maintenanceRecord.date)}
                                         <td>{maintenanceRecord.maintenance_record_id}</td>
-                                        <td>{maintenanceRecord.date.split('T')[0]}</td>
+                                        <td>{formattedDate.split(',')[0]}</td>
                                         <td>{maintenanceRecord.maintenance_work}</td>
                                         <td>{maintenanceRecord.charges_paid}</td>
                                         <td className='patient-delete-btn'>
