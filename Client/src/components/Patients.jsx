@@ -6,10 +6,13 @@ import AppointmentAddNew from './appointement/AppointmentAddNew';
 import LabRecords from './records/forms/LabRecord';
 import ConsumeMaterial from './records/forms/ConsumeMaterial';
 import ConsultingFee from './records/forms/ConsultingFee';
+import AddPrescription from './patients/AddPrescription';
+import OpenPrescriptionImg from './patients/OpenPrescriptionImg';
 
 const Patients = () => {
     const [currentTable, setCurrentTable] = useState("patient-table");
     const [patientID, setPatientID] = useState("");
+    const [appId, setAppId] = useState("");
 
     const [patientName, setPatientName] = useState("");
     const [mobileNo, setMobileNo] = useState();
@@ -30,7 +33,10 @@ const Patients = () => {
             setMobileNo={setMobileNo}
             setEmail={setEmail}
             setGender={setGender}
+            setAppId={setAppId}
             />}
+            {currentTable === "add-prescription" && <AddPrescription setCurrentTable={setCurrentTable}     patientID={patientID} appId={appId}/>}
+            {currentTable === "open-prescription-img" && <OpenPrescriptionImg setCurrentTable={setCurrentTable}     patientID={patientID} appId={appId}/>}
              
                
             {currentTable === "book_Appointment" && <button className='btnBack' onClick={() => setCurrentTable("patient-info")}><i class="fa-solid fa-backward"></i></button>}

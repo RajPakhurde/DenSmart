@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from "react";
+import { Zoom } from '@mui/material';
 
 const  StockHistory = (props) => {
     const [allStockHistory, setAllStockHistory] = useState([]);
@@ -58,6 +59,7 @@ const  StockHistory = (props) => {
     var toD = toDate.toISOString().substring(0,10);
 
     return (
+        <Zoom in={true}> 
         <div className="sub-tables">
             <div className="upper-div">
                 <div className="first-div" >
@@ -127,6 +129,7 @@ const  StockHistory = (props) => {
                 </table>
             </div>
         </div> 
+        </Zoom>
     );
 };
 

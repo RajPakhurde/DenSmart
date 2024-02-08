@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Zoom } from '@mui/material';
 
 const MaintenanceRecords = (props) => {
     const [allMaintenanceReocord, setAllMaintenanceRecord] = useState([]);
@@ -59,6 +60,7 @@ const MaintenanceRecords = (props) => {
     }
  
     return (
+        <Zoom in={true}> 
         <div className="sub-tables">
             <div className="upper-div">
                 <div className="first-div" >
@@ -123,6 +125,7 @@ const MaintenanceRecords = (props) => {
                 </table>
             </div>
         </div>
+        </Zoom>
     );
 };
 

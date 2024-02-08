@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Zoom } from '@mui/material';
 
 const CunsultingFee = (props) => {
     const [allConsultantingFee, setAllConsultingFee] = useState([]);
@@ -59,6 +60,7 @@ const CunsultingFee = (props) => {
 
     let sNo = 1;
     return (
+        <Zoom in={true}>
         <div className="sub-tables">
             <div className="upper-div">
                 <div className="first-div" >
@@ -131,6 +133,7 @@ const CunsultingFee = (props) => {
                 </table>
             </div>
         </div> 
+        </Zoom>
     );
 };
 

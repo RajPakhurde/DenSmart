@@ -378,3 +378,69 @@ font-weight: bold;
 .patient-delete-btn i:first-child {
     color: #0044ff;
 }
+
+.prescription-table th{
+    background-image: linear-gradient(#5e7fb5, #496ca4);
+    color: white;
+}
+
+.prescription-comp {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-whatsapp-print i{
+    background-color: #496ca4;
+    padding-right: 5px;
+}
+
+.btn-whatsapp-print button {
+    cursor: pointer;
+}
+
+.main-pre {
+    width: 1000px;
+    padding-top: 20px;
+    margin-top: 20px;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.pre-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-pre hr {
+    width: 100%;
+    border-radius: 0%;
+}
+
+.pre-table th{
+    color: #404048;
+    background-image: linear-gradient(white, white);
+}
+
+.pre-table tr:nth-child(even) {
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.pre-table table {
+    border: 1px solid #c2c2c3f6;
+    border-collapse: collapse;
+}
+.pre-table th {
+    border: 1px solid #c2c2c3f6;
+    border-collapse: collapse;
+}
+.pre-table td {
+    border: 1px solid #c2c2c3f6;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.open-pre-container {
+    font-family: 'Roboto', sans-serif;
+    color: #7B809A;
+}

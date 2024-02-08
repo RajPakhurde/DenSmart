@@ -256,8 +256,8 @@ app.post("/appointment", async (req, res) => {
     try {
         const {patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate} = req.body;
         const newAppointment = await pool.query(
-            "INSERT INTO appointment (patient_name, treatment, doctor_name, in_time, out_time, status, mobile, patient_iD, app_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
-            [patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate]
+            "INSERT INTO appointment (patient_name, treatment, doctor_name, in_time, out_time, status, mobile, patient_iD, app_date, prescription) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *",
+            [patientName, treatment, doctorName, inTime, outTime, status, mobile, patientID, appDate, "no"]
         );
 
         res.json(newAppointment.rows[0]);
@@ -515,6 +515,61 @@ app.delete("/consultingfee/:id", async (req, res) => {
         const deleteConsultingfee = await pool.query("DELETE FROM consulting_fee WHERE consulting_fee_id = $1", [id]);
 
         res.json("Consulting Fee Record deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// Insert data into prescription reacord table
+app.post("/prescription", async (req, res) => {
+    try {
+        const {medicineName, doses, days, instruction, patientID, appID} = req. body;
+        const newPrescriptionRecord = await pool.query(
+            "INSERT INTO prescription (medicine_name, doses, days, instruction, patient_id, appointment_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [medicineName, doses, days, instruction, patientID, appID]
+            );
+   
+        res.json(newPrescriptionRecord.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// Get all material Records
+app.get("/prescription/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const response = await pool.query("SELECT * FROM prescription WHERE appointment_id = $1",[id]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// DELETE DATA FROM APPOINTMENT TABLE   
+app.delete("/prescription/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const deletePresctiption = await pool.query("DELETE FROM prescription WHERE prescription_id = $1", [id]);
+   
+        res.json("Appointment deleted!");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// UPDATE STATUS FROM APPOINTMENT TABLE
+app.put("/prescription/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        
+        const updateStatus = await pool.query(
+            "UPDATE appointment SET prescription = 'yes' WHERE appointment_id = $1",
+            [id]
+        )
+
+        res.json("Prescription added!");
     } catch (error) {
         console.log(error.message);
     }

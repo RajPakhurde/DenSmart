@@ -1,3 +1,4 @@
+import { Zoom } from '@mui/material';
 import React, { useState } from 'react'
 
 const AddPatient = (props) => {
@@ -48,6 +49,7 @@ const AddPatient = (props) => {
     }
 
     return (
+        <Zoom in={true}>
         <div class="popup-record sub-tables" style={props.setCurrentCompnent !== undefined ? popupStyle : null }>
             <div className="lab-record-form">
 
@@ -107,6 +109,7 @@ const AddPatient = (props) => {
             </form>
             </div>
         </div>
+        </Zoom>
     )
 };
 

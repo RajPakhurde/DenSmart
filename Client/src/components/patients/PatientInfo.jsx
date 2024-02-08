@@ -1,4 +1,6 @@
+import { Zoom } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+
 
 const PatientInfo = (props) => {
     const [patientInfo, setPatientInfo] = useState([]);
@@ -90,7 +92,9 @@ const PatientInfo = (props) => {
     
     let sNo = 1;
     
-    return <div className='patient-selected'>
+    return (
+        <Zoom in={true}>
+        <div className='patient-selected'>
         <div className="form-header">
                 <div className="form-heading"><h1>Patient Details</h1></div> 
                 <div className="close-btn" onClick={() =>{
@@ -134,6 +138,7 @@ const PatientInfo = (props) => {
                             <th>Doctor</th>
                             <th>In Time</th>
                             <th>Out Time</th>
+                            <th>Prescription</th>
                         </thead>
                         <tbody>
                         {allAppointment.length === 0 ? <td colSpan={6} style={{textAlign: 'center', fontSize: '20px'}}>"Result Not Found!"</td> :
@@ -147,6 +152,22 @@ const PatientInfo = (props) => {
                                     <td>{appointment.doctor_name}</td>
                                     <td>{appointment.in_time}</td>
                                     <td>{appointment.out_time}</td>
+                                    {/* <td>{appointment.prescription}</td> */}
+                                    {appointment.prescription !== 'yes' ? <td><button id='add-prescription' style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", cursor: "pointer"}}
+                                    onClick={(e) => {
+                                    handleClick(e);
+                                    props.setAppId(appointment.appointment_id);
+                                    }
+                                    }>Add</button></td> :
+                                     <td><button style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", marginBottom: "2px", cursor: "pointer"}}>Update</button> 
+                                     <br /> 
+                                     <button id='open-prescription-img' style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", cursor: "pointer"}}
+                                    onClick={(e) => {
+                                        handleClick(e);
+                                        props.setAppId(appointment.appointment_id);
+                                    } }
+                                    >Print</button></td>}
+                                  
                                  </tr>
                     })}
                         </tbody>
@@ -200,9 +221,9 @@ const PatientInfo = (props) => {
                         {allConsumeMaterial.length === 0 ? <td colSpan={4} style={{textAlign: 'center', fontSize: '20px'}}>"Result Not Found!"</td> :
                         allConsumeMaterial.map((consumeMaterial) => {
                             const formattedDate = new Date(consumeMaterial.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-
+                            sNo = 1
                             return  <tr>
-                                        <td>{consumeMaterial.consume_material_id}</td>
+                                        <td>{sNo++}</td>
                                         <td>{formattedDate.split(',')[0]}</td>
                                         <td>{consumeMaterial.material_name}</td>
                                         <td>{consumeMaterial.doses}</td>
@@ -244,6 +265,9 @@ const PatientInfo = (props) => {
         </div>
         </div>
     </div>
+    </Zoom>
+
+    )
 };
 
 export default PatientInfo;
