@@ -16,6 +16,7 @@ const AppointmentAddNew = (props) => {
     const [patientID, setPatientID] = useState(props.patientID);
     const [appDate, setDate] = useState("");
     const [email, setEmail] = useState(props.email);
+    const [isWhatsappCheck, setIsWhatsappCheck] = useState(false);
     
    
     const onSubmitForm = async (e) => {
@@ -27,11 +28,29 @@ const AppointmentAddNew = (props) => {
               headers: {"content-type": "application/json"},
               body: JSON.stringify(body)
           })           
+
+          if (isWhatsappCheck) {
+            sendWhatsapp();
+          }
+
           alert("Appointment booked succesfully!!");
          
       } catch (error) {
           console.log(error.message);
       }
+  }
+
+  const handleCheckbox = () => {
+    setIsWhatsappCheck(!isWhatsappCheck);
+  }
+
+  function sendWhatsapp() {
+    let phoneNumber = "+91"+mobile;
+
+    let url = "https://wa.me/" + phoneNumber + "?text=" + "Name : " + patientName +"%0a" +"Mobile : " + mobile + "%0a" +"Treatment Name : " + treatment + "%0a" +"Date : " + appDate + "%0a" +"Doctor Name : " + doctorName + "%0a" +"Time : " + inTime +" to " + outTime + "%0a"  + "%0a" +"Status : " +status ;
+ 
+    window.open(url, '_blank').focus();
+    
   }
  
   
@@ -152,7 +171,7 @@ const AppointmentAddNew = (props) => {
                   <label for="send-message" className='email-icon'><i class="fa-solid fa-square-envelope"></i></label>
                 </div>
                 <div>
-                  <input type="checkbox" id="send-whatsapp-msg" />
+                  <input type="checkbox" id="send-whatsapp-msg" onChange={handleCheckbox}/>
                   <label for="send-whatsapp-msg" className='whatsapp-icon'><i class="fa-brands fa-square-whatsapp"></i></label>
                 </div>
               </div>

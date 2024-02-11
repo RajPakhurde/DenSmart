@@ -159,7 +159,13 @@ const PatientInfo = (props) => {
                                     props.setAppId(appointment.appointment_id);
                                     }
                                     }>Add</button></td> :
-                                     <td><button style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", marginBottom: "2px", cursor: "pointer"}}>Update</button> 
+                                     <td><button id='add-prescription' style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", marginBottom: "2px", cursor: "pointer"}}
+                                     onClick={(e) => {
+                                        handleClick(e);
+                                        props.setAppId(appointment.appointment_id);
+                                        }
+                                        }
+                                     >Update</button> 
                                      <br /> 
                                      <button id='open-prescription-img' style={{color: "#fff", backgroundColor: "#496ca4", padding: "5px", border: "none", borderRadius: "5px", cursor: "pointer"}}
                                     onClick={(e) => {

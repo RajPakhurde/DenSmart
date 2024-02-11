@@ -3,6 +3,7 @@ import cors from 'cors';
 import pg from 'pg';
 import { uid } from 'uid';
 import { customAlphabet } from 'nanoid';
+import sendmail from 'sendmail'
 
 const app = express();
 const port = 8080;

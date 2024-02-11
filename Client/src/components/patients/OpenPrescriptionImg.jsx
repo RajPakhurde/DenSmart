@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 
 const OpenPrescriptionImg = (props) => {
     
@@ -29,26 +30,65 @@ const OpenPrescriptionImg = (props) => {
         getCurrectnPrescription();
     }, []);
 
-    const generateImage = async () => {
-        const divToCapture = document.querySelector('.open-pre-container');
+    const convertDivToImage = async () => {
+        try {
+          const divElement = document.querySelector('.main-pre');
       
-        if (divToCapture) {
-          const canvas = await html2canvas(divToCapture);
-          const image = canvas.toDataURL('image/png');
-          return image;
+          if (!divElement) {
+            console.error('Div not found');
+            return;
+          }
+      
+          const canvas = await html2canvas(divElement);
+          const imageDataUrl = canvas.toDataURL('image/png');
+      
+          // Do something with the image data URL
+          console.log(imageDataUrl);
+        } catch (error) {
+          console.error('Error converting div to image:', error);
         }
       };
-
-      const sendImageViaWhatsApp = async () => {
-        const image = await generateImage();
-        const phoneNumber = patientsData.mobile; // Replace with the recipient's phone number
+ 
+    // const convertDivToImage = () => {
+    //     const divElement = document.querySelector('.main-pre');
       
-        if (image && phoneNumber) {
-            const encodedImage = encodeURIComponent(image);
-          const whatsappUrl = `https://wa.me/${phoneNumber}?text=Check%20out%20this%20prescription&media=${encodedImage}`;
-          window.open(whatsappUrl, '_blank');
-        }
-      };  
+    //     if (!divElement) {
+    //       console.error('Div not found');
+    //       return;
+    //     }
+      
+    //     domtoimage.toPng(divElement)
+    //       .then((dataUrl) => {
+    //         // Do something with the image data URL
+    //         console.log(dataUrl);
+    //       })
+    //       .catch((error) => {
+    //         console.error('Error converting div to image:', error);
+    //       });
+    //   };
+
+    // const generateImage = async () => {
+    //     const divToCapture = document.querySelector('.main-pre');
+      
+    //     if (divToCapture) {
+    //       const canvas = await html2canvas(divToCapture);
+    //       const image = canvas.toDataURL('image/png');
+    //       return image;
+    //     }
+    //   };
+
+    //   const sendImageViaWhatsApp = async () => {
+    //     const image = await generateImage();
+    //     const phoneNumber = patientsData.mobile; // Replace with the recipient's phone number
+        
+    //     if (image && phoneNumber) {
+    //         const encodedImage = encodeURIComponent(image);
+    //         console.log(encodedImage);
+    //       const whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(image);
+    //       window.open(whatsappUrl, '_blank').focus();
+    //     }
+     
+    // };  
 
     return (
         <div className='open-pre-container'>
@@ -63,7 +103,7 @@ const OpenPrescriptionImg = (props) => {
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div>
                 <div className='btn-whatsapp-print' style={{display: "flex", justifyContent: "flex-end", width: "1000px", gap: "10px"}} >
-                    <button onClick={sendImageViaWhatsApp} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-brands fa-whatsapp"></i> Whatsapp</button>
+                    <button onClick={convertDivToImage} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-brands fa-whatsapp"></i> Whatsapp</button>
                     <button style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-solid fa-print" />Print</button>
                 </div>
                 <div className='main-pre'>
