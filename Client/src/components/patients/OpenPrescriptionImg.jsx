@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import domtoimage from 'dom-to-image';
 
@@ -7,6 +7,7 @@ const OpenPrescriptionImg = (props) => {
     const [prescription, setPrescription] = useState([]);
     const [patientsData, setPatientsData] = useState([]);
     let sNo = 1;
+    var image = "";
 
      // Get all Appointment Records
      const getCurrectnPrescription = async () => {
@@ -40,15 +41,107 @@ const OpenPrescriptionImg = (props) => {
           }
       
           const canvas = await html2canvas(divElement);
-          const imageDataUrl = canvas.toDataURL('image/png');
+        //   const imageDataUrl = canvas.toDataURL('image/png');
+          image = canvas.toDataURL('image/png');
       
           // Do something with the image data URL
-          console.log(imageDataUrl);
+        //   console.log(imageDataUrl);
         } catch (error) {
           console.error('Error converting div to image:', error);
         }
       };
  
+    //   const printPrescription = () => {
+    //     let printContents = document.querySelector('.main-pre').innerHTML;
+    //     let originalContents = document.body.innerHTML;
+    //     document.body.innerHTML = printContents;
+    //     window.print();
+    //     document.body.innerHTML = originalContents; 
+    //   }
+
+    //   const printPrescription = () => {
+    //     const printContents = document.querySelector('.main-pre').outerHTML;
+    //     const printWindow = window.open('', '_blank');
+    //     printWindow.document.write('<html><head><title>Print Prescription</title>');
+    //     printWindow.document.write('<style>');
+    //     printWindow.document.write(getComputedStyle(document.querySelector('.main-pre')).cssText);
+    //     printWindow.document.write('</style></head><body>');
+    //     printWindow.document.write(printContents);
+    //     printWindow.document.write('</body></html>');
+    //     printWindow.document.close();
+    //     printWindow.print();
+    // };
+      
+    const printPrescription = () => {
+        const printContents = document.querySelector('.main-pre').outerHTML;
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>Prescription</title>');
+        printWindow.document.write('<style>');
+        printWindow.document.write(`
+            /* Add your CSS styles here */
+            /* For example: */
+            body { margin: 0; padding: 0; }
+            .main-pre { /* Add your styles for .main-pre here */ }
+            .pre-items { /* Add your styles for .pre-items here */ }
+            /* Add more styles as needed */
+            .main-pre {
+                width: 1000px;
+                padding-top: 20px;
+                margin-top: 20px;
+                border: 1px solid black;
+                padding: 20px;
+            }
+            
+            .pre-items {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .main-pre hr {
+                width: 100%;
+                border-radius: 0%;
+            }
+            
+            .pre-table th{
+                color: #404048;
+                background-image: linear-gradient(white, white);
+            }
+            
+            .pre-table tr:nth-child(even) {
+                background-color: #fff;
+                margin-top: 20px;
+            }
+            
+            .pre-table table {
+                border: 1px solid #c2c2c3f6;
+                border-collapse: collapse;
+            }
+            .pre-table th {
+                border: 1px solid #c2c2c3f6;
+                border-collapse: collapse;
+            }
+            .pre-table td {
+                border: 1px solid #c2c2c3f6;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            
+            .open-pre-container {
+                font-family: 'Roboto', sans-serif;
+                color: #7B809A;
+            }
+
+            .pre-table .table .prescription-table{
+                width: 100%;
+            }
+        `);
+        printWindow.document.write('</style></head><body>');
+        printWindow.document.write(printContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    };
     // const convertDivToImage = () => {
     //     const divElement = document.querySelector('.main-pre');
       
@@ -95,6 +188,7 @@ const OpenPrescriptionImg = (props) => {
              <div className="form-header">
                 <div className="form-heading"><h1>Prescription</h1></div> 
                     <div className="close-btn" onClick={() =>{
+                        console.log("close prescription");
                         props.setCurrentTable("patient-info");
                         }}  >&times;
                     </div>
@@ -104,7 +198,7 @@ const OpenPrescriptionImg = (props) => {
                 <div>
                 <div className='btn-whatsapp-print' style={{display: "flex", justifyContent: "flex-end", width: "1000px", gap: "10px"}} >
                     <button onClick={convertDivToImage} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-brands fa-whatsapp"></i> Whatsapp</button>
-                    <button style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-solid fa-print" />Print</button>
+                    <button onClick={printPrescription} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-solid fa-print" />Print</button>
                 </div>
                 <div className='main-pre'>
                     <div className='pre-items'>

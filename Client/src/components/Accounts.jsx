@@ -21,7 +21,7 @@ const Accounts = () => {
         } catch (error) {
             console.log(error.message);
         }
-    }
+    } 
 
     useEffect(() => {
         getAllConsultingFee();

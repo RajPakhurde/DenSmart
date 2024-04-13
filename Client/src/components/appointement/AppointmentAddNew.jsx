@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +17,7 @@ const AppointmentAddNew = (props) => {
     const [appDate, setDate] = useState("");
     const [email, setEmail] = useState(props.email);
     const [isWhatsappCheck, setIsWhatsappCheck] = useState(false);
+    const [isEmailCheck, setIsEmailCheck] = useState(false);
     
    
     const onSubmitForm = async (e) => {
@@ -32,6 +33,9 @@ const AppointmentAddNew = (props) => {
           if (isWhatsappCheck) {
             sendWhatsapp();
           }
+          if (isEmailCheck) {
+            sendEmail();
+          }
 
           alert("Appointment booked succesfully!!");
          
@@ -44,14 +48,43 @@ const AppointmentAddNew = (props) => {
     setIsWhatsappCheck(!isWhatsappCheck);
   }
 
+  const handleCheckboxEmail = () => {
+    setIsEmailCheck(!isEmailCheck);
+  }
+
   function sendWhatsapp() {
     let phoneNumber = "+91"+mobile;
-
-    let url = "https://wa.me/" + phoneNumber + "?text=" + "Name : " + patientName +"%0a" +"Mobile : " + mobile + "%0a" +"Treatment Name : " + treatment + "%0a" +"Date : " + appDate + "%0a" +"Doctor Name : " + doctorName + "%0a" +"Time : " + inTime +" to " + outTime + "%0a"  + "%0a" +"Status : " +status ;
+    
+    let url = "https://wa.me/" + phoneNumber + "?text=" + "Appointment Booked!!" + "%0a" + "Name : " + patientName  + "%0a" +"Treatment Name : " + treatment + "%0a" +"Date : " + appDate + "%0a" +"Doctor Name : " + doctorName + "%0a" +"Time : " + inTime +" to " + outTime + "%0a" +"Status : " +status ;
  
+
     window.open(url, '_blank').focus();
     
   }
+
+  function sendEmail() {
+    console.log("send email function");
+    
+    let body = "Name : " + patientName + "<br> Mobile : " + mobile + "<br> Treatment Name : " + treatment + "<br> Date : " + appDate + "<br> Doctor Name : " + doctorName + "<br> Time : " + inTime +" to " + outTime + "Status : " + status ;
+
+     
+    console.log("email send")
+    
+      window.Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "pakhurderaj@gmail.com",
+        Password : "B2A9B57021B1D7BF1BFE217C58AB14132365",
+        To : email,
+        From : "pakhurderaj@gmail.com",
+        Subject : "Appointment Schedule.",
+        Body : body
+    }).then(
+      message => alert(message)
+    );
+    
+  }
+
+   
  
   
     return (
@@ -167,7 +200,7 @@ const AppointmentAddNew = (props) => {
               </div>
               <div className="form-element form-checkbox" id="form-element-checkboxs">
                 <div>
-                  <input type="checkbox" id="send-message" />
+                  <input type="checkbox" id="send-message" onChange={handleCheckboxEmail} />
                   <label for="send-message" className='email-icon'><i class="fa-solid fa-square-envelope"></i></label>
                 </div>
                 <div>
