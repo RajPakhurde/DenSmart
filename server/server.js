@@ -109,6 +109,20 @@ app.post("/material-record", async (req, res) => {
     }
 })
 
+// GET RECORDS ACCORDING TO DATES
+app.get("/material-recorddates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM material_record WHERE date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 // Get all material Records
 app.get("/material-record", async (req, res) => {
     try {
@@ -148,6 +162,20 @@ app.post("/maintenance-record", async(req, res) => {
         console.log(error.message);
     }
 })
+
+// GET RECORDS ACCORDING TO DATES
+app.get("/maintenance-recorddates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM maintenance_record WHERE date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 // GET ALL MAINTENANCE RECORDS
 app.get("/maintenance-record", async (req, res) => {
@@ -200,6 +228,21 @@ app.get("/salary", async (req, res) => {
     }
 })
 
+// GET RECORDS ACCORDING TO DATES
+app.get("/salarydates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM salary_record WHERE date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 // DELETE DATA FROM SALARY TABLE   
 app.delete("/salary/:id", async (req, res) => {
     try {
@@ -239,6 +282,21 @@ app.get("/stock", async (req, res) => {
         console.log(error.message);
     }
 })
+
+// GET RECORDS ACCORDING TO DATES
+app.get("/stockdates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM stock_history_record WHERE expiry_date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 
 // DELETE DATA FROM Stock TABLE   
 app.delete("/stock/:id", async (req, res) => {
@@ -392,6 +450,21 @@ app.get("/lab", async (req, res) => {
     }
 })
 
+// GET LAB RECORDS ACCORDING TO DATES
+app.get("/labdates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM lab_record WHERE impression_date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 // GET SINGLE PATIENT LAB RECORD
 app.get("/lab/:id", async (req, res) => {
     try {
@@ -443,6 +516,20 @@ app.get("/consumematerial", async (req, res) => {
         console.log(error.message);
     }
 })
+
+// GET RECORDS ACCORDING TO DATES
+app.get("/consumematerialdates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM consume_material_record WHERE date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 // GET SINGLE CONSUME MATERIAL RECORD OF PATIENT
 app.get("/consumematerial/:id", async (req, res) => {
@@ -496,6 +583,60 @@ app.get("/consultingfee", async (req, res) => {
         console.log(error.message);
     }
 })
+
+// Total credit amount
+app.get("/consultingfeeTotal", async (req, res) => {
+    try {
+        const response = await pool.query("SELECT SUM(creadited_amount) AS totalCreditedAmount FROM consulting_fee");
+
+        // Extract the total credited amount from the response
+        const totalCreditedAmount = response.rows[0].totalCreditedAmount;
+     
+        res.json({totalCreditedAmount});
+    } catch (error) {
+        console.log(error.message);
+       
+    }
+});
+
+
+// GET ALL CONSUME MATERIAL RECORDS
+app.get("/consultingfee/treatment", async (req, res) => {
+    try {
+        const { treatmentName } = req.query;
+        const response = await pool.query("SELECT * FROM consulting_fee WHERE treatment = $1", [treatmentName]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET ALL CONSUME MATERIAL RECORDS
+app.get("/consultingfee/mop", async (req, res) => {
+    try {
+        const { mop } = req.query;
+        const response = await pool.query("SELECT * FROM consulting_fee WHERE mode_of_payment = $1", [mop]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+// GET RECORDS ACCORDING TO DATES
+app.get("/consultingfeedates", async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query; // Extract startDate and endDate from query parameters
+        
+        const response = await pool.query("SELECT * FROM consulting_fee WHERE date BETWEEN $1 AND $2", [startDate, endDate]);
+
+        res.json(response.rows);
+    } catch (error) {
+        console.log(error.message);
+        // res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 // GET SINGLE CONSULTING FEE RECORD OF PATIENT
 app.get("/consultingfee/:id", async (req, res) => {

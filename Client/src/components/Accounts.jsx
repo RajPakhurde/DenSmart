@@ -2,6 +2,91 @@ import React, { useState, useEffect } from 'react';
 
 const Accounts = () => {
     const [allConsultantingFee, setAllConsultingFee] = useState([]);
+    const [totalsum, setTotalsum] = useState();
+     
+
+    var startDate = "";
+    var endDate = "";
+    var treatmentName = "";
+    var mop = "";
+     
+
+    
+    const handleStartDateChange = (event) => {  
+        startDate = event.target.value; 
+        getAllRecordsDates(); 
+    };
+
+    const handleEndDateChange = (event) => {  
+        endDate = event.target.value;
+        getAllRecordsDates();
+    };
+
+    const handletreatmentChange = (event) => {  
+        treatmentName = event.target.value;
+        getTreatmentData();
+    };
+
+    const handlemopChange = (event) => {  
+        mop = event.target.value;
+        getmopdata();
+    };
+
+    const getAllRecordsDates = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/consultingfeedates?startDate=${startDate}&endDate=${endDate}`);
+            const jsonDate = await response.json();
+    
+            setAllConsultingFee(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const getTreatmentData = async () => {
+        try {
+            console.log(treatmentName);
+            if (treatmentName === "all") {
+                getAllConsultingFee();
+                return;
+            }
+            const response = await fetch(`http://localhost:8080/consultingfee/treatment?treatmentName=${treatmentName}`);
+            const jsonDate = await response.json();
+    
+            setAllConsultingFee(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const  getmopdata = async () => {
+        try {
+            console.log(mop);
+            if (mop === "all") {
+                getAllConsultingFee();
+                return;
+            }
+            const response = await fetch(`http://localhost:8080/consultingfee/mop/?mop=${mop}`);
+            const jsonDate = await response.json();
+    
+            setAllConsultingFee(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const getTotalCredit = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/consultingfeeTotal");
+            const jsonDate = await response.json();
+
+            setTotalsum(jsonDate.totalCreditedAmount);
+            console.log(jsonDate.totalCreditedAmount);
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    } 
 
     var fromDate = new Date();
     fromDate.setDate(fromDate.getDate() - 30);
@@ -25,6 +110,7 @@ const Accounts = () => {
 
     useEffect(() => {
         getAllConsultingFee();
+        getTotalCredit();
     }, []);
      
     return (
@@ -34,11 +120,11 @@ const Accounts = () => {
                     <div className='accounts-dates'>
                         <div className='accounts-date form-element'>
                             <lable for="from-date">From</lable>
-                            <input type="date" id="from-date" required defaultValue={fromD}/>
+                            <input type="date" id="from-date" required onChange={handleStartDateChange}/>
                         </div>
                         <div className='accounts-date form-element'>
                             <lable for="to-date">To</lable>
-                            <input type="date" id="to-date" required defaultValue={toD} />
+                            <input type="date" id="to-date" required onChange={handleEndDateChange} />
                         </div>
                     </div>
                     
@@ -47,7 +133,7 @@ const Accounts = () => {
                         <option value="Dr. Ritesh Mehta">Dr. Ritesh Mehta</option>
                     </select>
 
-                    <select name="treatment-name" id="treatment-name" required>
+                    <select name="treatment-name" id="treatment-name" required onChange={handletreatmentChange}>
                         <option value="default">--Treatments--</option>
                         <option value="all">--All--</option>
                         <option value="Complete Denture">Complete Denture</option>
@@ -67,8 +153,9 @@ const Accounts = () => {
                         </option>
                     </select>
 
-                    <select name="modeofpayment" id="form-payment-mode" required>
+                    <select name="modeofpayment" id="form-payment-mode" required onChange={handlemopChange}>
                         <option value="default">--Mode of Payment--</option>
+                        <option value="all">--All--</option>
                         <option value="online">Online</option>
                         <option value="Cash">Cash</option>
                     </select>
@@ -109,10 +196,10 @@ const Accounts = () => {
                 </table>
             </div>
 
-            <div className='accounts-footer'>
+            {/* <div className='accounts-footer'>
                 <div>
                     <p>Total Credit</p>
-                    <h3>12000</h3>
+                    <h3> {totalsum !== null ? totalsum : "Loading..."}</h3>
                 </div>
                 <i class="fa-solid fa-minus"></i>
                 <div>
@@ -129,7 +216,7 @@ const Accounts = () => {
                     <p>Total Pendings</p>
                     <h3 className='tp'>5500</h3>
                 </div>
-            </div>
+            </div> */}
         </div> 
     );
 };

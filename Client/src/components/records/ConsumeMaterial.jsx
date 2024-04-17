@@ -4,6 +4,34 @@ import { Zoom } from '@mui/material';
 const  ConsumeMaterial = (props) => {
     const [allConsumeMaterial, setAllConsumeMaterial] = useState([]);
 
+    var startDate = "";
+    var endDate = "";
+
+    function handleClick(event) {
+        props.setCurrentTable(event.target.id);
+    }
+
+    const handleStartDateChange = (event) => {  
+        startDate = event.target.value; 
+        getAllRecordsDates(); 
+    };
+
+    const handleEndDateChange = (event) => {  
+        endDate = event.target.value;
+        getAllRecordsDates();
+    };
+
+    const getAllRecordsDates = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/consumematerialdates?startDate=${startDate}&endDate=${endDate}`);
+            const jsonDate = await response.json();
+    
+            setAllConsumeMaterial(jsonDate);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     function handleClick(event) {
         props.setCurrentTable(event.target.id);
     }
@@ -69,9 +97,9 @@ const  ConsumeMaterial = (props) => {
                     <option value="alldates">All Dates</option>
                     </select>
                     <p  >From</p>
-                    <input type="date" id="from-date" required defaultValue={fromD} />
+                    <input type="date" id="from-date" required onChange={handleStartDateChange} />
                     <p >To</p>
-                    <input type="date" id="to-date" required defaultValue={toD} />
+                    <input type="date" id="to-date" required onChange={handleEndDateChange} />
                 </div>
 
                 <div className="second-div" >

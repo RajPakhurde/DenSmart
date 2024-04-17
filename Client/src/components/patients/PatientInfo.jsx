@@ -41,7 +41,7 @@ const PatientInfo = (props) => {
             const jsonDate = await response.json();
 
             setAllLabRecords(jsonDate);
-        } catch (error) {
+        } catch (error) { 
             console.log(error.message);
         }
     }
