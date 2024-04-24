@@ -144,7 +144,7 @@ const CunsultingFee = (props) => {
                                         <td>{consultingfee.creadited_amount}</td>
                                         <td>{consultingfee.consultant_amount}</td>
                                         <td className='patient-delete-btn'>
-                                            <i class="fa-solid fa-pencil"></i>
+                                            {/* <i class="fa-solid fa-pencil"></i> */}
                                             <i class="fa-solid fa-trash"
                                              onClick={() =>{
                                                 if(!window.confirm("Are you sure?")) return

@@ -144,7 +144,7 @@ const  MaterialRecords = (props) => {
                                         <td>{materialRecord.total_charges}</td>
                                         <td>{materialRecord.expiry_date.split('T')[0]}</td>
                                         <td className='patient-delete-btn'>
-                                            <i class="fa-solid fa-pencil"></i>
+                                            {/* <i class="fa-solid fa-pencil"></i> */}
                                             <i class="fa-solid fa-trash"
                                              onClick={() =>{
                                                 if(!window.confirm("Are you sure?")) return

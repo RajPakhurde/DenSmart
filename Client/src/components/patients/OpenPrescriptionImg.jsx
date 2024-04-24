@@ -197,7 +197,7 @@ const OpenPrescriptionImg = (props) => {
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div>
                 <div className='btn-whatsapp-print' style={{display: "flex", justifyContent: "flex-end", width: "1000px", gap: "10px"}} >
-                    <button onClick={convertDivToImage} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-brands fa-whatsapp"></i> Whatsapp</button>
+                    {/* <button onClick={convertDivToImage} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-brands fa-whatsapp"></i> Whatsapp</button> */}
                     <button onClick={printPrescription} style={{color: "#fff", backgroundColor: "#496ca4", padding: "10px", border: "none", borderRadius: "5px", fontSize: "15px"}} ><i class="fa-solid fa-print" />Print</button>
                 </div>
                 <div className='main-pre'>

@@ -135,7 +135,7 @@ const MaintenanceRecords = (props) => {
                                         <td>{maintenanceRecord.maintenance_work}</td>
                                         <td>{maintenanceRecord.charges_paid}</td>
                                         <td className='patient-delete-btn'>
-                                            <i class="fa-solid fa-pencil"></i>
+                                            {/* <i class="fa-solid fa-pencil"></i> */}
                                             <i class="fa-solid fa-trash"
                                              onClick={() =>{
                                                 if(!window.confirm("Are you sure?")) return

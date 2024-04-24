@@ -113,6 +113,7 @@ const Accounts = () => {
         getTotalCredit();
     }, []);
      
+    let sNo = 1;
     return (
         <div className="sub-tables accounts-container">
             <div className="upper-div">
@@ -182,7 +183,7 @@ const Accounts = () => {
                             const formattedDate = new Date(consultingfee.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
                             return <tr>
-                                        <td>{consultingfee.consulting_fee_id}</td>
+                                        <td>{sNo++}</td>
                                         <td>{formattedDate.split(',')[0]}</td>
                                         <td>{consultingfee.patient_name}</td>
                                         <td>{consultingfee.doctor_name}</td>

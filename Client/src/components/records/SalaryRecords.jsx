@@ -136,7 +136,7 @@ const  SalaryRecords = (props) => {
                                         <td>{salaryRecord.employee_name}</td>
                                         <td>{salaryRecord.salary_paid}</td>
                                         <td className='patient-delete-btn'>
-                                            <i class="fa-solid fa-pencil"></i>
+                                            {/* <i class="fa-solid fa-pencil"></i> */}
                                             <i class="fa-solid fa-trash"
                                              onClick={() =>{
                                                 if(!window.confirm("Are you sure?")) return

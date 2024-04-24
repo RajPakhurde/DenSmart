@@ -147,7 +147,7 @@ const  LabRecords = (props) => {
                                         <td>{formattedDate4.split(',')[0]}</td>
                                         <td>{labRecord.lab_charges}</td>
                                         <td className='patient-delete-btn'>
-                                            <i class="fa-solid fa-pencil"></i>
+                                            {/* <i class="fa-solid fa-pencil"></i> */}
                                             <i class="fa-solid fa-trash"
                                              onClick={() =>{
                                                 if(!window.confirm("Are you sure?")) return
